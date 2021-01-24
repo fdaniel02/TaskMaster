@@ -7,10 +7,10 @@ namespace UI
         private TaskListViewModel _taskListViewModel;
         private TaskDetailViewModel _taskDetailViewModel;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(TaskListViewModel taskListViewModel, TaskDetailViewModel taskDetailViewModel)
         {
-            TaskListViewModel = new TaskListViewModel();
-            TaskDetailViewModel = new TaskDetailViewModel();
+            TaskListViewModel = taskListViewModel;
+            TaskDetailViewModel = taskDetailViewModel;
         }
 
         public TaskListViewModel TaskListViewModel
