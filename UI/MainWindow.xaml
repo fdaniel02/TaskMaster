@@ -6,7 +6,7 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:tasks="clr-namespace:UI.Tasks"
                  mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1600">
+                 Title="Task Master" Height="800" Width="1600">
     <Window.Resources>
         <DataTemplate DataType="{x:Type TypeName=tasks:TaskListViewModel}">
             <tasks:TaskListView />
