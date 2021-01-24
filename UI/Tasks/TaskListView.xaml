@@ -15,7 +15,35 @@
 
     <Grid>
         <TextBlock Text="TaskListView" />
-        <DataGrid ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid
+            ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Name"
+                    Width="4*"
+                    Binding="{Binding Name}" />
+                <DataGridTextColumn
+                    Header="State"
+                    Width="*"
+                    Binding="{Binding State.Name}" />
+
+                <DataGridTemplateColumn Header="Deadline" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Deadline}" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Created" Width="*" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker IsEnabled="False" SelectedDate="{Binding Created}" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>
