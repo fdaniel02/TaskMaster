@@ -16,7 +16,10 @@ namespace TaskMaster.Domain.Repositories
 
         public async Task<List<Project>> GetAll()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Projects
+                .Include(p => p.State)
+                .Include(p => p.ActionItems)
+                .ToListAsync();
         }
 
         public async Task Add(Project project)

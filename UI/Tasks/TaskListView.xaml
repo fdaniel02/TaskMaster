@@ -21,8 +21,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Name"
-                    Width="4*"
+                    Width="5*"
                     Binding="{Binding Name}" />
+
                 <DataGridTextColumn
                     Header="State"
                     Width="*"
@@ -39,7 +40,10 @@
                 <DataGridTemplateColumn Header="Created" Width="*" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker IsEnabled="False" SelectedDate="{Binding Created}" BorderThickness="0" />
+                            <DatePicker
+                                IsEnabled="False"
+                                SelectedDate="{Binding Created}"
+                                BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
