@@ -17,6 +17,7 @@
         <TextBlock Text="TaskListView" />
         <DataGrid
             ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedProject}"
             AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn
