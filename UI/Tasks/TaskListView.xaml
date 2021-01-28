@@ -18,6 +18,7 @@
         <DataGrid
             ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedProject}"
+            CanUserAddRows="False"
             AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn
