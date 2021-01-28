@@ -58,6 +58,7 @@
             IsClockVisible="False"
             IsTodayHighlighted="True"
             SelectedDateFormat="Short"
+            IsEnabled="False"
             SelectedDateTime="{Binding Project.Created}" />
     </Grid>
 </UserControl>
