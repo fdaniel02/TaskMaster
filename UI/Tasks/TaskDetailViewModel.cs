@@ -21,8 +21,13 @@ namespace UI.Tasks
         public Project Project
         {
             get => _project;
-            set => SetProperty(ref _project, value);
+            set {
+                SetProperty(ref _project, value);
+                OnPropertyChanged(nameof(ShowDetails));
+            }
         }
+
+        public bool ShowDetails => Project is not null;
 
         public void Load(Project project)
         {
