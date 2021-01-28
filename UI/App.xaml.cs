@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Prism.Events;
 using TaskMaster.Domain;
 using TaskMaster.Domain.Repositories;
 using TaskMaster.Services;
@@ -43,6 +44,7 @@ namespace UI
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<TaskListViewModel>();
             services.AddScoped<TaskDetailViewModel>();
+            services.AddScoped<IEventAggregator, EventAggregator>();
 
             services.AddDbContext<TaskMasterContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("TaskMasterContext")));
