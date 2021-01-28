@@ -1,17 +1,21 @@
-﻿using System.Linq;
+﻿using Prism.Events;
 using TaskMaster.Domain.Models;
 using TaskMaster.Services;
+using UI.Tasks.Events;
 
 namespace UI.Tasks
 {
     public class TaskDetailViewModel : BindableBase
     {
         private readonly IProjectService _projectService;
+        private readonly IEventAggregator _eventAggregator;
         private Project _project;
 
-        public TaskDetailViewModel(IProjectService projectService)
+        public TaskDetailViewModel(IProjectService projectService, IEventAggregator eventAggregator)
         {
             _projectService = projectService;
+            _eventAggregator = eventAggregator;
+            eventAggregator.GetEvent<ProjectSelectedEvent>().Subscribe(Load);
         }
 
         public Project Project
@@ -20,10 +24,9 @@ namespace UI.Tasks
             set => SetProperty(ref _project, value);
         }
 
-        public async void Load()
+        public void Load(Project project)
         {
-            var projects = await _projectService.GetProjects();
-            Project = projects.LastOrDefault();
+            Project = project;
         }
     }
 }
