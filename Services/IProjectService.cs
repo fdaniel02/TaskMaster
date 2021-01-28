@@ -8,6 +8,8 @@ namespace TaskMaster.Services
     {
         Task<List<Project>> GetProjects();
 
+        Task<List<Project>> GetOpenProjects();
+
         void SaveChanges(Project project);
     }
 }

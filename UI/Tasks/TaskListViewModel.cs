@@ -36,7 +36,7 @@ namespace UI.Tasks
 
         public async void Load()
         {
-            var projects = await _projectService.GetProjects();
+            var projects = await _projectService.GetOpenProjects();
             Projects = new ObservableCollection<Project>(projects);
         }
     }
