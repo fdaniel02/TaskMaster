@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TaskMaster.Domain.Models;
@@ -14,12 +14,12 @@ namespace TaskMaster.Domain.Repositories
             _context = context;
         }
 
-        public async Task<List<Project>> GetAll()
+        public IQueryable<Project> GetAll()
         {
-            return await _context.Projects
+            return _context.Projects
                 .Include(p => p.State)
                 .Include(p => p.ActionItems)
-                .ToListAsync();
+                .AsQueryable();
         }
 
         public async Task Add(Project project)
