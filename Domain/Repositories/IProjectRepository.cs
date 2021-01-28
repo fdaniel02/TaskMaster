@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using TaskMaster.Domain.Models;
 
@@ -6,7 +6,7 @@ namespace TaskMaster.Domain.Repositories
 {
     public interface IProjectRepository
     {
-        Task<List<Project>> GetAll();
+        IQueryable<Project> GetAll();
 
         Task Add(Project project);
 

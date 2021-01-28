@@ -27,7 +27,8 @@ namespace TaskMaster.Domain
                 new { ID = 3, Name = "Scheduled" },
                 new { ID = 4, Name = "Waiting" },
                 new { ID = 5, Name = "Delegated" },
-                new { ID = 6, Name = "Later" }
+                new { ID = 6, Name = "Later" },
+                new { ID = 9, Name = "Closed" }
             );
         }
     }
