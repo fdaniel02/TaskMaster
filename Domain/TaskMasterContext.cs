@@ -5,13 +5,17 @@ namespace TaskMaster.Domain
 {
     public class TaskMasterContext : DbContext
     {
-        public TaskMasterContext(DbContextOptions<TaskMasterContext> options) : base(options)
+        public TaskMasterContext(DbContextOptions<TaskMasterContext> options)
+            : base(options)
         {
         }
 
         public DbSet<Project> Projects { get; set; }
+
         public DbSet<ActionItem> ActionItems { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
+
         public DbSet<ProjectState> ProjectState { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,8 +32,7 @@ namespace TaskMaster.Domain
                 new { ID = 4, Name = "Waiting" },
                 new { ID = 5, Name = "Delegated" },
                 new { ID = 6, Name = "Later" },
-                new { ID = 9, Name = "Closed" }
-            );
+                new { ID = 9, Name = "Closed" });
         }
     }
 }
