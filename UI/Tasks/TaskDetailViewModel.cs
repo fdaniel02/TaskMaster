@@ -21,7 +21,8 @@ namespace UI.Tasks
         public Project Project
         {
             get => _project;
-            set {
+            set
+            {
                 SetProperty(ref _project, value);
                 OnPropertyChanged(nameof(ShowDetails));
             }

@@ -28,7 +28,8 @@ namespace UI.Tasks
         public Project SelectedProject
         {
             get => _selectedProject;
-            set {
+            set
+            {
                 SetProperty(ref _selectedProject, value);
                 _eventAggregator.GetEvent<ProjectSelectedEvent>().Publish(_selectedProject);
             }

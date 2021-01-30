@@ -16,7 +16,7 @@ namespace TaskMaster.Domain.Migrations
                     { 3, "Scheduled" },
                     { 4, "Waiting" },
                     { 5, "Delegated" },
-                    { 6, "Later" }
+                    { 6, "Later" },
                 });
         }
 

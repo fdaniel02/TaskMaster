@@ -13,12 +13,10 @@ using UI.Tasks;
 
 namespace UI
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public IServiceProvider ServiceProvider { get; private set; }
+
         public IConfiguration Configuration { get; private set; }
 
         protected override void OnStartup(StartupEventArgs eventArgs)
