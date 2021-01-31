@@ -17,6 +17,7 @@ namespace Domain.Repositories
         {
             return _context.Projects
                 .Include(p => p.ActionItems)
+                .Include(p => p.Comments)
                 .AsQueryable();
         }
 
