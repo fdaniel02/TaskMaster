@@ -29,6 +29,11 @@ namespace Services
                             .ToList();
         }
 
+        public Project GetProject(int id)
+        {
+            return _projectRepository.GetAll().FirstOrDefault(p => p.ID == id);
+        }
+
         public void SaveChanges(Project project)
         {
             project.LastUpdated = DateTime.Now;
@@ -51,6 +56,17 @@ namespace Services
         {
             project.Created = DateTime.Now;
             _projectRepository.Add(project);
+        }
+
+        public void AddComment(string comment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddComment(Project project, string comment)
+        {
+            var newComment = new Comment() { Body = comment, Created = DateTime.Now };
+            project.Comments.Add(newComment);
         }
 
         private bool IsNewProject(int projectId)

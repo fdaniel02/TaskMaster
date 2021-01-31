@@ -33,7 +33,7 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="35" />
+            <RowDefinition Height="45" />
         </Grid.RowDefinitions>
         <TextBox
             Grid.Column="0"
@@ -71,43 +71,52 @@
             IsEnabled="False"
             SelectedDateTime="{Binding Project.Created}" />
 
-        <ItemsControl
+        <ScrollViewer
             Grid.Row="4"
-            ItemsSource="{Binding Path=Project.Comments}">
+            VerticalScrollBarVisibility="Auto">
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Separator
-                            Grid.ColumnSpan="2"
-                            Style="{StaticResource SeparatorStyle}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Text="{Binding Created, StringFormat=yyyy-MM-dd HH:mm}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            TextWrapping="Wrap"
-                            TextAlignment="Justify"
-                            Text="{Binding Body}" />
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+            <ItemsControl ItemsSource="{Binding Comments}">
 
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Separator
+                                Grid.ColumnSpan="2"
+                                Style="{StaticResource SeparatorStyle}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Text="{Binding Created, StringFormat=yyyy-MM-dd HH:mm}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                TextWrapping="Wrap"
+                                TextAlignment="Justify"
+                                Text="{Binding Body}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <TextBox
+            Grid.Row="5"
+            Text="{Binding Comment}"
+            TextWrapping="Wrap"
+            AcceptsReturn="True" />
 
         <Button
             Grid.Row="5"

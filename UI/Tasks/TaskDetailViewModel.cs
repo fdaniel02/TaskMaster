@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using System.Collections.ObjectModel;
+using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
 using Services;
@@ -13,6 +14,8 @@ namespace UI.Tasks
         private readonly IEventAggregator _eventAggregator;
 
         private Project _project;
+
+        private string _comment;
 
         public TaskDetailViewModel(IProjectService projectService, IEventAggregator eventAggregator)
         {
@@ -33,6 +36,19 @@ namespace UI.Tasks
             {
                 SetProperty(ref _project, value);
                 OnPropertyChanged(nameof(ShowDetails));
+                OnPropertyChanged(nameof(Comments));
+            }
+        }
+
+        public ObservableCollection<Comment> Comments
+            => new ObservableCollection<Comment>(Project?.Comments);
+
+        public string Comment
+        {
+            get => _comment;
+            set
+            {
+                SetProperty(ref _comment, value);
             }
         }
 
@@ -41,10 +57,13 @@ namespace UI.Tasks
         public void Load(Project project)
         {
             Project = project;
+            Comment = string.Empty;
         }
 
         private void Save()
         {
+            AddComment();
+
             _projectService.SaveChanges(Project);
             _eventAggregator.GetEvent<UpdateProjectListEvent>().Publish();
         }
@@ -52,6 +71,16 @@ namespace UI.Tasks
         private bool CanSave()
         {
             return true;
+        }
+
+        private void AddComment()
+        {
+            if (string.IsNullOrEmpty(Comment))
+            {
+                return;
+            }
+
+            _projectService.AddComment(Project, Comment);
         }
     }
 }

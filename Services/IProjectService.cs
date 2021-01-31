@@ -9,10 +9,14 @@ namespace Services
 
         List<Project> GetOpenProjects();
 
+        Project GetProject(int id);
+
         void SaveChanges(Project project);
 
         void UpdateProject(Project project);
 
         void AddNewProject(Project project);
+
+        void AddComment(Project project, string comment);
     }
 }
