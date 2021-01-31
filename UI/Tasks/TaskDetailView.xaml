@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
         <ObjectDataProvider
                 x:Key="states"
                 MethodName="GetValues"
@@ -69,6 +70,44 @@
             SelectedDateFormat="Short"
             IsEnabled="False"
             SelectedDateTime="{Binding Project.Created}" />
+
+        <ItemsControl
+            Grid.Row="4"
+            ItemsSource="{Binding Path=Project.Comments}">
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Separator
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource SeparatorStyle}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Text="{Binding Created, StringFormat=yyyy-MM-dd HH:mm}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            TextWrapping="Wrap"
+                            TextAlignment="Justify"
+                            Text="{Binding Body}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
 
         <Button
             Grid.Row="5"
