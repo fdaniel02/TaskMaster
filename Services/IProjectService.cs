@@ -11,5 +11,9 @@ namespace TaskMaster.Services
         Task<List<Project>> GetOpenProjects();
 
         void SaveChanges(Project project);
+
+        Task UpdateProject(Project project);
+
+        Task AddNewProject(Project project);
     }
 }

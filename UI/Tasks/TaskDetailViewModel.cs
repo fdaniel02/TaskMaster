@@ -23,7 +23,7 @@ namespace UI.Tasks
             SaveCommand = new DelegateCommand(Save, CanSave);
         }
 
-        public DelegateCommand SaveCommand { get; private set; }
+        public DelegateCommand SaveCommand { get; }
 
         public Project Project
         {
@@ -44,6 +44,7 @@ namespace UI.Tasks
 
         private void Save()
         {
+            _projectService.SaveChanges(Project);
         }
 
         private bool CanSave()

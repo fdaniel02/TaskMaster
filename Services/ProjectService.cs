@@ -33,16 +33,31 @@ namespace TaskMaster.Services
 
         public async void SaveChanges(Project project)
         {
-            if (project.ID > 0)
+            project.LastUpdated = DateTime.Now;
+
+            if (IsNewProject(project.ID))
             {
-                project.LastUpdated = DateTime.Now;
-                await _projectRepository.Update(project);
+                await AddNewProject(project);
+                return;
             }
-            else
-            {
-                project.Created = DateTime.Now;
-                await _projectRepository.Add(project);
-            }
+
+            await UpdateProject(project);
+        }
+
+        public async Task UpdateProject(Project project)
+        {
+            await _projectRepository.Update(project);
+        }
+
+        public async Task AddNewProject(Project project)
+        {
+            project.Created = DateTime.Now;
+            await _projectRepository.Add(project);
+        }
+
+        private bool IsNewProject(int projectId)
+        {
+            return projectId <= 0;
         }
     }
 }
