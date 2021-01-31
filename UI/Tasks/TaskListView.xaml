@@ -14,8 +14,20 @@
     </b:Interaction.Triggers>
 
     <Grid>
-        <TextBlock Text="TaskListView" />
-        <DataGrid
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Height="30" Content="NEW PROJECT"/>
+            </Grid>
+        </StackPanel>
+        <DataGrid Grid.Row="1"
             ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedProject}"
             CanUserAddRows="False"
