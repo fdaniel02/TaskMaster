@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
@@ -37,11 +38,15 @@ namespace UI.Tasks
                 SetProperty(ref _project, value);
                 OnPropertyChanged(nameof(ShowDetails));
                 OnPropertyChanged(nameof(Comments));
+                OnPropertyChanged(nameof(OpenActionItems));
             }
         }
 
         public ObservableCollection<Comment> Comments
             => new(Project?.Comments);
+
+        public ObservableCollection<ActionItem> OpenActionItems
+            => new(Project?.ActionItems.Where(a => !a.Finished));
 
         public string Comment
         {

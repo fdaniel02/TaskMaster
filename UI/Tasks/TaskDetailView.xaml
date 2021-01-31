@@ -33,6 +33,7 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="45" />
         </Grid.RowDefinitions>
         <TextBox
@@ -73,6 +74,40 @@
 
         <ScrollViewer
             Grid.Row="4"
+            VerticalScrollBarVisibility="Auto"
+            Margin="0,0,0,10">
+
+            <ItemsControl ItemsSource="{Binding OpenActionItems}">
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                TextWrapping="Wrap"
+                                TextAlignment="Justify"
+                                Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <ScrollViewer
+            Grid.Row="5"
             VerticalScrollBarVisibility="Auto">
 
             <ItemsControl ItemsSource="{Binding Comments}">
@@ -113,13 +148,13 @@
         </ScrollViewer>
 
         <TextBox
-            Grid.Row="5"
+            Grid.Row="6"
             Text="{Binding Comment}"
             TextWrapping="Wrap"
             AcceptsReturn="True" />
 
         <Button
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.Column="1"
             Content="SAVE"
             Command="{Binding SaveCommand}" />
