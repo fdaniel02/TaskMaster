@@ -41,7 +41,7 @@ namespace UI.Tasks
         }
 
         public ObservableCollection<Comment> Comments
-            => new ObservableCollection<Comment>(Project?.Comments);
+            => new(Project?.Comments);
 
         public string Comment
         {
