@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Events;
 using Services;
-using TaskMaster.Services;
 using UI.Tasks;
 
 namespace UI

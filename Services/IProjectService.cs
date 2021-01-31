@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain.Models;
 
-namespace TaskMaster.Services
+namespace Services
 {
     public interface IProjectService
     {

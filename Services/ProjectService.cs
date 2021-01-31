@@ -4,7 +4,6 @@ using System.Linq;
 using Domain.Models;
 using Domain.Repositories;
 using Services.Enums;
-using TaskMaster.Services;
 
 namespace Services
 {

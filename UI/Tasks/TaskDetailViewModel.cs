@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
-using TaskMaster.Services;
+using Services;
 using UI.Tasks.Events;
 
 namespace UI.Tasks
