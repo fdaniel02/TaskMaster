@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Domain.Models;
+using Prism.Commands;
 using Prism.Events;
 using Services;
 using UI.Tasks.Events;
@@ -20,7 +21,13 @@ namespace UI.Tasks
         {
             _projectService = projectService;
             _eventAggregator = eventAggregator;
+
+            eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
+
+            AddProjectCommand = new DelegateCommand(AddProject);
         }
+
+        public DelegateCommand AddProjectCommand { get; }
 
         public ObservableCollection<Project> Projects
         {
@@ -42,6 +49,11 @@ namespace UI.Tasks
         {
             var projects = _projectService.GetOpenProjects();
             Projects = new ObservableCollection<Project>(projects);
+        }
+
+        private void AddProject()
+        {
+            SelectedProject = new Project();
         }
     }
 }

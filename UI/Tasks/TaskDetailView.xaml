@@ -37,33 +37,33 @@
         <TextBox
             Grid.Column="0"
             Grid.Row="0"
-            Margin="5 0 5 5"
+            Margin="0 0 5 5"
             Text="{Binding Project.Name}" />
 
         <TextBox
             Grid.Column="0"
             Grid.Row="1"
             Grid.RowSpan="3"
-            Margin="5 0 5 5"
+            Margin="0 0 5 5"
             Text="{Binding Project.Details}" />
 
         <ComboBox
             Grid.Column="1"
             Grid.Row="0"
-            Margin="5 0 5 5"
+            Margin="5 0 0 5"
             ItemsSource="{Binding Source={StaticResource states}}"
             SelectedItem="{Binding Path=Project.State}" />
 
         <mah:DateTimePicker
             Grid.Column="1"
             Grid.Row="1"
-            Margin="5 0 5 5"
+            Margin="5 0 0 5"
             SelectedDateTime="{Binding Project.Deadline}" />
 
         <mah:DateTimePicker
             Grid.Column="1"
             Grid.Row="2"
-            Margin="5 0 5 5"
+            Margin="5 0 0 5"
             IsClockVisible="False"
             IsTodayHighlighted="True"
             SelectedDateFormat="Short"
