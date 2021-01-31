@@ -2,12 +2,13 @@
 using System.IO;
 using System.Text;
 using System.Windows;
+using Domain;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Events;
-using TaskMaster.Domain;
-using TaskMaster.Domain.Repositories;
+using Services;
 using TaskMaster.Services;
 using UI.Tasks;
 

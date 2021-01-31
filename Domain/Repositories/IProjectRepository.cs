@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
-using TaskMaster.Domain.Models;
+using Domain.Models;
 
-namespace TaskMaster.Domain.Repositories
+namespace Domain.Repositories
 {
     public interface IProjectRepository
     {
         IQueryable<Project> GetAll();
 
-        Task Add(Project project);
+        void Add(Project project);
 
-        Task Update(Project project);
+        void Update(Project project);
     }
 }

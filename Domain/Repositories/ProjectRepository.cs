@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using TaskMaster.Domain.Models;
 
-namespace TaskMaster.Domain.Repositories
+namespace Domain.Repositories
 {
     public class ProjectRepository : IProjectRepository
     {
@@ -22,17 +21,17 @@ namespace TaskMaster.Domain.Repositories
                 .AsQueryable();
         }
 
-        public async Task Add(Project project)
+        public void Add(Project project)
         {
-            await _context.Projects.AddAsync(project);
-            await _context.SaveChangesAsync();
+            _context.Projects.AddAsync(project);
+            _context.SaveChanges();
         }
 
-        public async Task Update(Project project)
+        public void Update(Project project)
         {
             _context.Projects.Attach(project);
             _context.Entry(project).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

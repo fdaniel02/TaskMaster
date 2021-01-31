@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using TaskMaster.Domain.Models;
 
-namespace TaskMaster.Domain.Models
+namespace Domain.Models
 {
     public class Project
     {

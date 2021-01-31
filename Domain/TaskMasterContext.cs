@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using TaskMaster.Domain.Models;
 
-namespace TaskMaster.Domain
+namespace Domain
 {
     public class TaskMasterContext : DbContext
     {

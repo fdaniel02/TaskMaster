@@ -1,5 +1,5 @@
-﻿using Prism.Events;
-using TaskMaster.Domain.Models;
+﻿using Domain.Models;
+using Prism.Events;
 
 namespace UI.Tasks.Events
 {

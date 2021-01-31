@@ -1,6 +1,6 @@
-﻿using Prism.Commands;
+﻿using Domain.Models;
+using Prism.Commands;
 using Prism.Events;
-using TaskMaster.Domain.Models;
 using TaskMaster.Services;
 using UI.Tasks.Events;
 
