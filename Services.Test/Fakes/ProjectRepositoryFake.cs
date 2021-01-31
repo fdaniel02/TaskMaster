@@ -21,12 +21,14 @@ namespace Services.Test.Fakes
 
         public void Add(Project project)
         {
-            throw new System.NotImplementedException();
+            Projects.Add(project);
         }
 
         public void Update(Project project)
         {
-            throw new System.NotImplementedException();
+            var projectToUpdate = Projects.FirstOrDefault(p => p.ID == project.ID);
+            var projectToUpdateIndex = Projects.IndexOf(projectToUpdate);
+            Projects[projectToUpdateIndex] = project;
         }
 
         public void SetupFake(List<Project> projects)
