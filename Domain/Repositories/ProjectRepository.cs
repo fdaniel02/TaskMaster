@@ -16,7 +16,6 @@ namespace Domain.Repositories
         public IQueryable<Project> GetAll()
         {
             return _context.Projects
-                .Include(p => p.State)
                 .Include(p => p.ActionItems)
                 .AsQueryable();
         }

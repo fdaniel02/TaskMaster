@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Enums;
 using Domain.Models;
 using Domain.Repositories;
-using Services.Enums;
 
 namespace Services
 {
@@ -25,7 +25,7 @@ namespace Services
         {
             return _projectRepository
                             .GetAll()
-                            .Where(p => p.State.ID != (int)ProjectStates.Closed)
+                            .Where(p => p.State != ProjectStates.Closed)
                             .ToList();
         }
 

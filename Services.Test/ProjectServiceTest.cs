@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Domain.Enums;
 using Domain.Models;
 using FluentAssertions;
-using Services.Enums;
 using Services.Test.Fakes;
-using TaskMaster.Domain.Models;
 using Xunit;
 
 namespace Services.Test
@@ -30,7 +29,7 @@ namespace Services.Test
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
             var sut = new ProjectService(repository);
-            var expected = testProjects.Where(p => p.State.ID != (int)ProjectStates.Closed);
+            var expected = testProjects.Where(p => p.State != ProjectStates.Closed);
 
             var actual = sut.GetOpenProjects();
 
@@ -99,9 +98,9 @@ namespace Services.Test
         {
             return new()
             {
-                new() { ID = 1, Name = "Test1", State = new ProjectState() { ID = (int)ProjectStates.Inbox }, },
-                new() { ID = 2, Name = "Test2", State = new ProjectState() { ID = (int)ProjectStates.Next }, },
-                new() { ID = 3, Name = "Test3", State = new ProjectState() { ID = (int)ProjectStates.Closed }, },
+                new() { ID = 1, Name = "Test1", State = ProjectStates.Inbox },
+                new() { ID = 2, Name = "Test2", State = ProjectStates.Next },
+                new() { ID = 3, Name = "Test3", State = ProjectStates.Closed },
             };
         }
     }

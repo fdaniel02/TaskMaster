@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TaskMaster.Domain.Models;
+using Domain.Enums;
 
 namespace Domain.Models
 {
@@ -18,7 +18,7 @@ namespace Domain.Models
 
         public DateTime? Deadline { get; set; }
 
-        public ProjectState State { get; set; }
+        public ProjectStates State { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 
