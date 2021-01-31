@@ -18,7 +18,7 @@ namespace Domain.Models
 
         public DateTime? Deadline { get; set; }
 
-        public ProjectStates State { get; set; }
+        public ProjectStates State { get; set; } = ProjectStates.Inbox;
 
         public ICollection<Comment> Comments { get; set; }
 
