@@ -1,6 +1,7 @@
-﻿using Prism.Events;
-using TaskMaster.Domain.Models;
-using TaskMaster.Services;
+﻿using Domain.Models;
+using Prism.Commands;
+using Prism.Events;
+using Services;
 using UI.Tasks.Events;
 
 namespace UI.Tasks
@@ -8,7 +9,9 @@ namespace UI.Tasks
     public class TaskDetailViewModel : BindableBase
     {
         private readonly IProjectService _projectService;
+
         private readonly IEventAggregator _eventAggregator;
+
         private Project _project;
 
         public TaskDetailViewModel(IProjectService projectService, IEventAggregator eventAggregator)
@@ -16,7 +19,11 @@ namespace UI.Tasks
             _projectService = projectService;
             _eventAggregator = eventAggregator;
             eventAggregator.GetEvent<ProjectSelectedEvent>().Subscribe(Load);
+
+            SaveCommand = new DelegateCommand(Save, CanSave);
         }
+
+        public DelegateCommand SaveCommand { get; }
 
         public Project Project
         {
@@ -33,6 +40,16 @@ namespace UI.Tasks
         public void Load(Project project)
         {
             Project = project;
+        }
+
+        private void Save()
+        {
+            _projectService.SaveChanges(Project);
+        }
+
+        private bool CanSave()
+        {
+            return true;
         }
     }
 }

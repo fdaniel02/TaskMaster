@@ -6,13 +6,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TaskMaster.Domain;
 
 namespace TaskMaster.Domain.Migrations
 {
     [DbContext(typeof(TaskMasterContext))]
-    [Migration("20210128205408_AddClosedState")]
-    partial class AddClosedState
+    [Migration("20210131114335_ProjectStateTableRemoved")]
+    partial class ProjectStateTableRemoved
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,9 +19,9 @@ namespace TaskMaster.Domain.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("TaskMaster.Domain.Models.ActionItem", b =>
+            modelBuilder.Entity("Domain.Models.ActionItem", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -45,7 +44,7 @@ namespace TaskMaster.Domain.Migrations
                     b.ToTable("ActionItem");
                 });
 
-            modelBuilder.Entity("TaskMaster.Domain.Models.Comment", b =>
+            modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -68,7 +67,7 @@ namespace TaskMaster.Domain.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("TaskMaster.Domain.Models.Project", b =>
+            modelBuilder.Entity("Domain.Models.Project", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -90,92 +89,29 @@ namespace TaskMaster.Domain.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateID")
+                    b.Property<int>("State")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("StateID");
-
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("TaskMaster.Domain.Models.ProjectState", b =>
+            modelBuilder.Entity("Domain.Models.ActionItem", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("ProjectState");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Name = "Inbox"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Name = "Next"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Name = "Scheduled"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Name = "Waiting"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Name = "Delegated"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Name = "Later"
-                        },
-                        new
-                        {
-                            ID = 9,
-                            Name = "Closed"
-                        });
-                });
-
-            modelBuilder.Entity("TaskMaster.Domain.Models.ActionItem", b =>
-                {
-                    b.HasOne("TaskMaster.Domain.Models.Project", null)
+                    b.HasOne("Domain.Models.Project", null)
                         .WithMany("ActionItems")
                         .HasForeignKey("ProjectID");
                 });
 
-            modelBuilder.Entity("TaskMaster.Domain.Models.Comment", b =>
+            modelBuilder.Entity("Domain.Models.Comment", b =>
                 {
-                    b.HasOne("TaskMaster.Domain.Models.Project", null)
+                    b.HasOne("Domain.Models.Project", null)
                         .WithMany("Comments")
                         .HasForeignKey("ProjectID");
                 });
 
-            modelBuilder.Entity("TaskMaster.Domain.Models.Project", b =>
-                {
-                    b.HasOne("TaskMaster.Domain.Models.ProjectState", "State")
-                        .WithMany()
-                        .HasForeignKey("StateID");
-
-                    b.Navigation("State");
-                });
-
-            modelBuilder.Entity("TaskMaster.Domain.Models.Project", b =>
+            modelBuilder.Entity("Domain.Models.Project", b =>
                 {
                     b.Navigation("ActionItems");
 

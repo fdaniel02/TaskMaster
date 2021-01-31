@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TaskMaster.Domain.Models
+namespace Domain.Models
 {
     public class Comment
     {

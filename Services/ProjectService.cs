@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Services.Enums;
-using TaskMaster.Domain.Models;
-using TaskMaster.Domain.Repositories;
+using Domain.Enums;
+using Domain.Models;
+using Domain.Repositories;
 
-namespace TaskMaster.Services
+namespace Services
 {
     public class ProjectService : IProjectService
     {
@@ -18,31 +16,46 @@ namespace TaskMaster.Services
             _projectRepository = projectRepository;
         }
 
-        public async Task<List<Project>> GetProjects()
+        public List<Project> GetProjects()
         {
-            return await _projectRepository.GetAll().ToListAsync();
+            return _projectRepository.GetAll().ToList();
         }
 
-        public async Task<List<Project>> GetOpenProjects()
+        public List<Project> GetOpenProjects()
         {
-            return await _projectRepository
+            return _projectRepository
                             .GetAll()
-                            .Where(p => p.State.ID != (int)ProjectStates.Closed)
-                            .ToListAsync();
+                            .Where(p => p.State != ProjectStates.Closed)
+                            .ToList();
         }
 
-        public async void SaveChanges(Project project)
+        public void SaveChanges(Project project)
         {
-            if (project.ID > 0)
+            project.LastUpdated = DateTime.Now;
+
+            if (IsNewProject(project.ID))
             {
-                project.LastUpdated = DateTime.Now;
-                await _projectRepository.Update(project);
+                AddNewProject(project);
+                return;
             }
-            else
-            {
-                project.Created = DateTime.Now;
-                await _projectRepository.Add(project);
-            }
+
+            UpdateProject(project);
+        }
+
+        public void UpdateProject(Project project)
+        {
+            _projectRepository.Update(project);
+        }
+
+        public void AddNewProject(Project project)
+        {
+            project.Created = DateTime.Now;
+            _projectRepository.Add(project);
+        }
+
+        private bool IsNewProject(int projectId)
+        {
+            return projectId <= 0;
         }
     }
 }

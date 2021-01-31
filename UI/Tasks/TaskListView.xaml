@@ -29,7 +29,7 @@
                 <DataGridTextColumn
                     Header="State"
                     Width="*"
-                    Binding="{Binding State.Name}" />
+                    Binding="{Binding State}" />
 
                 <DataGridTemplateColumn Header="Deadline" Width="*">
                     <DataGridTemplateColumn.CellTemplate>

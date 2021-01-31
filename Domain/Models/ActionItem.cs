@@ -1,4 +1,4 @@
-﻿namespace TaskMaster.Domain.Models
+﻿namespace Domain.Models
 {
     public class ActionItem
     {
