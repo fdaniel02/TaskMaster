@@ -22,6 +22,7 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         <TextBox
             Grid.Column="0"
@@ -57,5 +58,11 @@
             SelectedDateFormat="Short"
             IsEnabled="False"
             SelectedDateTime="{Binding Project.Created}" />
+
+        <Button
+            Grid.Row="5"
+            Grid.Column="1"
+            Content="SAVE"
+            Command="{Binding SaveCommand}" />
     </Grid>
 </UserControl>
