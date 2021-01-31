@@ -49,11 +49,6 @@ namespace UI.Tasks
         {
             var projects = _projectService.GetOpenProjects();
             Projects = new ObservableCollection<Project>(projects);
-
-            if (SelectedProject is not null)
-            {
-                _eventAggregator.GetEvent<ProjectSelectedEvent>().Publish(SelectedProject);
-            }
         }
 
         private void AddProject()

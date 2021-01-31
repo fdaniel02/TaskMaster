@@ -66,6 +66,8 @@ namespace UI.Tasks
 
             _projectService.SaveChanges(Project);
             _eventAggregator.GetEvent<UpdateProjectListEvent>().Publish();
+
+            Load(Project);
         }
 
         private bool CanSave()
