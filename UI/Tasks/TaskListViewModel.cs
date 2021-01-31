@@ -21,6 +21,9 @@ namespace UI.Tasks
         {
             _projectService = projectService;
             _eventAggregator = eventAggregator;
+
+            eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
+
             AddProjectCommand = new DelegateCommand(AddProject);
         }
 

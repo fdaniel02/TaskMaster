@@ -18,6 +18,7 @@ namespace UI.Tasks
         {
             _projectService = projectService;
             _eventAggregator = eventAggregator;
+
             eventAggregator.GetEvent<ProjectSelectedEvent>().Subscribe(Load);
 
             SaveCommand = new DelegateCommand(Save, CanSave);
@@ -45,6 +46,7 @@ namespace UI.Tasks
         private void Save()
         {
             _projectService.SaveChanges(Project);
+            _eventAggregator.GetEvent<UpdateProjectListEvent>().Publish();
         }
 
         private bool CanSave()
