@@ -18,5 +18,7 @@ namespace Services
         void AddNewProject(Project project);
 
         void AddComment(Project project, string comment);
+
+        void AddActionItem(Project project, string actionItem);
     }
 }

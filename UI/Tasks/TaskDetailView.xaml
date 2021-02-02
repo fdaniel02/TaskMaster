@@ -80,8 +80,28 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding ActionItem, UpdateSourceTrigger=PropertyChanged}" />
+                <Button
+                    Content="Add"
+                    Grid.Column="1"
+                    Command="{Binding AddActionItemCommand}" />
+            </Grid>
+
             <ScrollViewer
                 Grid.Column="0"
+                Grid.Row="1"
                 VerticalScrollBarVisibility="Auto">
 
                 <ItemsControl ItemsSource="{Binding OpenActionItems}">
@@ -115,6 +135,7 @@
 
             <ScrollViewer
                 Grid.Column="1"
+                Grid.Row="1"
                 VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding ClosedActionItems}">
 
@@ -133,7 +154,7 @@
                                     TextWrapping="Wrap"
                                     TextAlignment="Justify"
                                     Text="{Binding Name}"
-                                    TextDecorations="Strikethrough"/>
+                                    TextDecorations="Strikethrough" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

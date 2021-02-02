@@ -18,6 +18,8 @@ namespace UI.Tasks
 
         private string _comment;
 
+        private string _actionItem;
+
         public TaskDetailViewModel(IProjectService projectService, IEventAggregator eventAggregator)
         {
             _projectService = projectService;
@@ -26,9 +28,12 @@ namespace UI.Tasks
             eventAggregator.GetEvent<ProjectSelectedEvent>().Subscribe(Load);
 
             SaveCommand = new DelegateCommand(Save, CanSave);
+            AddActionItemCommand = new DelegateCommand(AddActionItem, CanAddActionItem);
         }
 
         public DelegateCommand SaveCommand { get; }
+
+        public DelegateCommand AddActionItemCommand { get; }
 
         public Project Project
         {
@@ -52,13 +57,20 @@ namespace UI.Tasks
         public ObservableCollection<ActionItem> ClosedActionItems
             => new(Project?.ActionItems.Where(a => a.Finished));
 
+        public string ActionItem
+        {
+            get => _actionItem;
+            set
+            {
+                SetProperty(ref _actionItem, value);
+                AddActionItemCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         public string Comment
         {
             get => _comment;
-            set
-            {
-                SetProperty(ref _comment, value);
-            }
+            set => SetProperty(ref _comment, value);
         }
 
         public bool ShowDetails => Project is not null;
@@ -67,6 +79,7 @@ namespace UI.Tasks
         {
             Project = project;
             Comment = string.Empty;
+            ActionItem = string.Empty;
         }
 
         private void Save()
@@ -92,6 +105,18 @@ namespace UI.Tasks
             }
 
             _projectService.AddComment(Project, Comment);
+        }
+
+        private void AddActionItem()
+        {
+            _projectService.AddActionItem(Project, ActionItem);
+
+            Load(Project);
+        }
+
+        private bool CanAddActionItem()
+        {
+            return !string.IsNullOrEmpty(ActionItem);
         }
     }
 }

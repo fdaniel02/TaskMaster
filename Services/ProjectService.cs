@@ -58,15 +58,18 @@ namespace Services
             _projectRepository.Add(project);
         }
 
-        public void AddComment(string comment)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddComment(Project project, string comment)
         {
-            var newComment = new Comment() { Body = comment, Created = DateTime.Now };
+            var newComment = new Comment { Body = comment, Created = DateTime.Now };
             project.Comments.Add(newComment);
+        }
+
+        public void AddActionItem(Project project, string actionItem)
+        {
+            var newActionItem = new ActionItem { Name = actionItem, Finished = false };
+            project.ActionItems.Add(newActionItem);
+
+            SaveChanges(project);
         }
 
         private bool IsNewProject(int projectId)
