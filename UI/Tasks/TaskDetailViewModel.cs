@@ -109,7 +109,9 @@ namespace UI.Tasks
 
         private void AddActionItem()
         {
-            throw new System.NotImplementedException();
+            _projectService.AddActionItem(Project, ActionItem);
+
+            Load(Project);
         }
 
         private bool CanAddActionItem()
