@@ -89,13 +89,14 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0"/>
-                <Button 
-                    Content="Add" 
-                    Grid.Column="1"/>
+                <TextBox Text="{Binding ActionItem, UpdateSourceTrigger=PropertyChanged}" />
+                <Button
+                    Content="Add"
+                    Grid.Column="1"
+                    Command="{Binding AddActionItemCommand}" />
             </Grid>
 
             <ScrollViewer
