@@ -72,42 +72,84 @@
             IsEnabled="False"
             SelectedDateTime="{Binding Project.Created}" />
 
-        <ScrollViewer
+        <Grid
             Grid.Row="4"
-            VerticalScrollBarVisibility="Auto"
+            Grid.ColumnSpan="2"
             Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ScrollViewer
+                Grid.Column="0"
+                VerticalScrollBarVisibility="Auto">
 
-            <ItemsControl ItemsSource="{Binding OpenActionItems}">
+                <ItemsControl ItemsSource="{Binding OpenActionItems}">
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <CheckBox />
+                                <CheckBox IsChecked="False" />
 
-                            <TextBlock
-                                Grid.Column="1"
-                                TextWrapping="Wrap"
-                                TextAlignment="Justify"
-                                Text="{Binding Name}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                                <TextBlock
+                                    Grid.Column="1"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Justify"
+                                    Text="{Binding Name}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <ScrollViewer
+                Grid.Column="1"
+                VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding ClosedActionItems}">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox IsChecked="True" />
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Justify"
+                                    Text="{Binding Name}"
+                                    TextDecorations="Strikethrough"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
 
         <ScrollViewer
             Grid.Row="5"
+            Grid.ColumnSpan="2"
             VerticalScrollBarVisibility="Auto">
 
             <ItemsControl ItemsSource="{Binding Comments}">

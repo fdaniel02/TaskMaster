@@ -39,6 +39,7 @@ namespace UI.Tasks
                 OnPropertyChanged(nameof(ShowDetails));
                 OnPropertyChanged(nameof(Comments));
                 OnPropertyChanged(nameof(OpenActionItems));
+                OnPropertyChanged(nameof(ClosedActionItems));
             }
         }
 
@@ -47,6 +48,9 @@ namespace UI.Tasks
 
         public ObservableCollection<ActionItem> OpenActionItems
             => new(Project?.ActionItems.Where(a => !a.Finished));
+
+        public ObservableCollection<ActionItem> ClosedActionItems
+            => new(Project?.ActionItems.Where(a => a.Finished));
 
         public string Comment
         {
