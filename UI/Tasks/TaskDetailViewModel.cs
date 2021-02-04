@@ -27,13 +27,16 @@ namespace UI.Tasks
 
             eventAggregator.GetEvent<ProjectSelectedEvent>().Subscribe(Load);
 
-            SaveCommand = new DelegateCommand(Save, CanSave);
+            SaveCommand = new DelegateCommand(SaveChanges, CanSave);
             AddActionItemCommand = new DelegateCommand(AddActionItem, CanAddActionItem);
+            ToogleActionItemCommand = new DelegateCommand<ActionItem>(ToogleActionItem);
         }
 
         public DelegateCommand SaveCommand { get; }
 
         public DelegateCommand AddActionItemCommand { get; }
+
+        public DelegateCommand<ActionItem> ToogleActionItemCommand { get; }
 
         public Project Project
         {
@@ -82,7 +85,7 @@ namespace UI.Tasks
             ActionItem = string.Empty;
         }
 
-        private void Save()
+        private void SaveChanges()
         {
             AddComment();
 
@@ -117,6 +120,14 @@ namespace UI.Tasks
         private bool CanAddActionItem()
         {
             return !string.IsNullOrEmpty(ActionItem);
+        }
+
+        private void ToogleActionItem(ActionItem actionItem)
+        {
+            Project.ActionItems.FirstOrDefault(a => a.ID == actionItem.ID).Finished = !actionItem.Finished;
+
+            _projectService.SaveChanges(Project);
+            Load(Project);
         }
     }
 }
