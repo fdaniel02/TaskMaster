@@ -94,7 +94,14 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Text="{Binding ActionItem, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Text="{Binding ActionItem, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Command="{Binding AddActionItemCommand}"
+                            Key="Return" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button
                     Content="Add"
                     Grid.Column="1"
@@ -230,9 +237,15 @@
 
         <TextBox
             Grid.Row="6"
-            Text="{Binding Comment}"
+            Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap"
-            AcceptsReturn="True" />
+            AcceptsReturn="True">
+            <TextBox.InputBindings>
+                <KeyBinding
+                    Command="{Binding SaveCommand}"
+                    Key="Return" />
+            </TextBox.InputBindings>
+        </TextBox>
 
         <Button
             Grid.Row="6"
