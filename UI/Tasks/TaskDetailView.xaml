@@ -47,6 +47,7 @@
             Grid.Row="1"
             Grid.RowSpan="3"
             Margin="0 0 5 5"
+            TextWrapping="Wrap"
             Text="{Binding Project.Details}" />
 
         <ComboBox
