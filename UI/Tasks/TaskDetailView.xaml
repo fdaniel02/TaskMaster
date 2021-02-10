@@ -23,6 +23,13 @@
         </ObjectDataProvider>
     </UserControl.Resources>
 
+    <UserControl.InputBindings>
+        <KeyBinding
+            Modifiers="Control"
+            Key="S"
+            Command="{Binding SaveCommand}" />
+    </UserControl.InputBindings>
+
     <Grid Visibility="{Binding Path=ShowDetails, Converter={StaticResource BoolToVisibility}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" />
@@ -41,7 +48,7 @@
             Grid.Column="0"
             Grid.Row="0"
             Margin="0 0 5 5"
-            Text="{Binding Project.Name}" />
+            Text="{Binding Project.Name, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBox
             Grid.Column="0"
@@ -49,7 +56,7 @@
             Grid.RowSpan="3"
             Margin="0 0 5 5"
             TextWrapping="Wrap"
-            Text="{Binding Project.Details}" />
+            Text="{Binding Project.Details, UpdateSourceTrigger=PropertyChanged}" />
 
         <ComboBox
             Grid.Column="1"
