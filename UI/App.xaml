@@ -12,7 +12,8 @@
 
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.FlatButton.xaml" />
 
-                <ResourceDictionary Source="Tasks/Styles/SeparatorStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Tasks/Styles/SeparatorStyle.xaml" />
+                <ResourceDictionary Source="Tasks/Styles/ProjectGroupStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style
+        x:Key="ProjectGroupStyle"
+        TargetType="{x:Type GroupItem}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GroupItem}">
+
+                    <Expander IsExpanded="True">
+                        <Expander.Header>
+                            <Border>
+                                <TextBlock Text="{Binding Name}" FontSize="20" />
+                            </Border>
+                        </Expander.Header>
+
+                        <ItemsPresenter Margin="0,0,0,30" />
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

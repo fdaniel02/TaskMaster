@@ -14,6 +14,15 @@
     </b:Interaction.Triggers>
 
     <Grid>
+
+        <Grid.Resources>
+            <CollectionViewSource x:Key="projects" Source="{Binding Projects}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="State" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
@@ -37,10 +46,21 @@
         <DataGrid
             IsReadOnly="True"
             Grid.Row="1"
-            ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
+            ItemsSource="{Binding Source={StaticResource projects}, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedProject}"
             CanUserAddRows="False"
             AutoGenerateColumns="False">
+
+            <DataGrid.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource ProjectGroupStyle}">
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <DataGridRowsPresenter />
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Name"
