@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
@@ -47,7 +48,7 @@ namespace UI.Tasks
 
         public void Load()
         {
-            var projects = _projectService.GetOpenProjects();
+            var projects = _projectService.GetOpenProjects().OrderBy(p => p.State);
             Projects = new ObservableCollection<Project>(projects);
         }
 
