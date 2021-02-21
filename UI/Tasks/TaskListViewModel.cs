@@ -48,8 +48,12 @@ namespace UI.Tasks
 
         public void Load()
         {
+            var selectedProject = _selectedProject;
+
             var projects = _projectService.GetOpenProjects().OrderBy(p => p.State);
             Projects = new ObservableCollection<Project>(projects);
+
+            SelectedProject = selectedProject;
         }
 
         private void AddProject()
