@@ -23,5 +23,9 @@ namespace Domain.Models
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<ActionItem> ActionItems { get; set; }
+
+        public string Source { get; set; }
+
+        public ProjectPriorities Priority { get; set; } = ProjectPriorities.Normal;
     }
 }

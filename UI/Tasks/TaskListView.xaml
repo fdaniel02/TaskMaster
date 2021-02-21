@@ -64,23 +64,60 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Name"
-                    Width="5*"
+                    Width="*"
                     Binding="{Binding Name}" />
 
                 <DataGridTextColumn
                     Header="State"
-                    Width="*"
+                    Width="65"
                     Binding="{Binding State}" />
 
-                <DataGridTemplateColumn Header="Deadline" Width="*">
+                <DataGridTextColumn
+                    Header="Priority"
+                    Width="75"
+                    Binding="{Binding Priority}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="Critical">
+                                    <Setter Property="Background" Value="#d35d6e" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="High">
+                                    <Setter Property="Background" Value="#efb08c" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="Normal">
+                                    <Setter Property="Background" Value="#5aa469" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="Minor">
+                                    <Setter Property="Background" Value="#c5d7bd" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn
+                    Header="Deadline"
+                    Width="95">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding Deadline}" BorderThickness="0" />
+                            <DatePicker
+                                SelectedDate="{Binding Deadline}"
+                                BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Created" Width="*" IsReadOnly="True">
+                <DataGridTextColumn
+                    Header="Source"
+                    Width="75"
+                    Binding="{Binding Source}" />
+
+                <DataGridTemplateColumn
+                    Header="Created"
+                    Width="95"
+                    IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker
