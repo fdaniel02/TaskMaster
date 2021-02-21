@@ -50,7 +50,10 @@ namespace UI.Tasks
         {
             var selectedProject = _selectedProject;
 
-            var projects = _projectService.GetOpenProjects().OrderBy(p => p.State);
+            var projects = _projectService
+                .GetOpenProjects()
+                .OrderBy(p => p.State)
+                .ThenBy(p => p.Priority);
             Projects = new ObservableCollection<Project>(projects);
 
             SelectedProject = selectedProject;
