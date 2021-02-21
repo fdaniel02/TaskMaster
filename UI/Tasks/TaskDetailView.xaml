@@ -21,6 +21,15 @@
                 <x:Type TypeName="StateAlias:ProjectStates" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
+        <ObjectDataProvider
+            x:Key="priorities"
+            MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="StateAlias:ProjectPriorities" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </UserControl.Resources>
 
     <UserControl.InputBindings>
@@ -40,6 +49,7 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="45" />
@@ -53,7 +63,7 @@
         <TextBox
             Grid.Column="0"
             Grid.Row="1"
-            Grid.RowSpan="3"
+            Grid.RowSpan="4"
             Margin="0 0 5 5"
             TextWrapping="Wrap"
             AcceptsReturn="True"
@@ -66,15 +76,28 @@
             ItemsSource="{Binding Source={StaticResource states}}"
             SelectedItem="{Binding Path=Project.State}" />
 
-        <mah:DateTimePicker
+        <ComboBox
             Grid.Column="1"
             Grid.Row="1"
             Margin="5 0 0 5"
-            SelectedDateTime="{Binding Project.Deadline}" />
+            ItemsSource="{Binding Source={StaticResource priorities}}"
+            SelectedItem="{Binding Path=Project.Priority}" />
 
         <mah:DateTimePicker
             Grid.Column="1"
             Grid.Row="2"
+            Margin="5 0 0 5"
+            SelectedDateTime="{Binding Project.Deadline}" />
+
+        <TextBox
+            Grid.Column="1"
+            Grid.Row="3"
+            Margin="5 0 0 5"
+            Text="{Binding Project.Source}" />
+
+        <mah:DateTimePicker
+            Grid.Column="1"
+            Grid.Row="4"
             Margin="5 0 0 5"
             IsClockVisible="False"
             IsTodayHighlighted="True"
@@ -83,7 +106,7 @@
             SelectedDateTime="{Binding Project.Created}" />
 
         <Grid
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.ColumnSpan="2"
             Margin="0,0,5,10">
             <Grid.ColumnDefinitions>
@@ -202,7 +225,7 @@
         </Grid>
 
         <ScrollViewer
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.ColumnSpan="2"
             VerticalScrollBarVisibility="Auto">
 
@@ -245,7 +268,7 @@
         </ScrollViewer>
 
         <TextBox
-            Grid.Row="6"
+            Grid.Row="7"
             Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
             TextWrapping="Wrap"
             AcceptsReturn="True">
@@ -257,7 +280,7 @@
         </TextBox>
 
         <Button
-            Grid.Row="6"
+            Grid.Row="7"
             Grid.Column="1"
             Content="SAVE"
             Command="{Binding SaveCommand}" />
