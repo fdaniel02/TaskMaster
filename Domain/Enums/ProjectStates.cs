@@ -2,6 +2,8 @@
 {
     public enum ProjectStates
     {
+        Active = 0,
+
         Inbox = 1,
 
         Next = 2,
