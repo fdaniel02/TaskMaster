@@ -14,9 +14,13 @@ namespace UI.Tasks
 
         private readonly IEventAggregator _eventAggregator;
 
+        private readonly DelegateCommand _addProjectCommand;
+
         private ObservableCollection<Project> _projects;
 
         private Project _selectedProject;
+
+        private bool _showClosedProjects = false;
 
         public TaskListViewModel(IProjectService projectService, IEventAggregator eventAggregator)
         {
@@ -25,10 +29,10 @@ namespace UI.Tasks
 
             eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
 
-            AddProjectCommand = new DelegateCommand(AddProject);
+            _addProjectCommand = new DelegateCommand(AddProject);
         }
 
-        public DelegateCommand AddProjectCommand { get; }
+        public DelegateCommand AddProjectCommand => _addProjectCommand;
 
         public ObservableCollection<Project> Projects
         {
@@ -46,14 +50,21 @@ namespace UI.Tasks
             }
         }
 
+        public bool ShowClosedProjects
+        {
+            get => _showClosedProjects;
+            set => SetProperty(ref _showClosedProjects, value);
+        }
+
         public void Load()
         {
             var selectedProject = _selectedProject;
 
             var projects = _projectService
-                .GetOpenProjects()
+                .GetProjects()
                 .OrderBy(p => p.State)
                 .ThenBy(p => p.Priority);
+
             Projects = new ObservableCollection<Project>(projects);
 
             SelectedProject = selectedProject;
