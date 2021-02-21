@@ -64,23 +64,40 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Name"
-                    Width="5*"
+                    Width="*"
                     Binding="{Binding Name}" />
 
                 <DataGridTextColumn
                     Header="State"
-                    Width="*"
+                    Width="65"
                     Binding="{Binding State}" />
 
-                <DataGridTemplateColumn Header="Deadline" Width="*">
+                <DataGridTextColumn
+                    Header="Priority"
+                    Width="75"
+                    Binding="{Binding Priority}" />
+
+                <DataGridTemplateColumn 
+                    Header="Deadline"
+                    Width="95">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding Deadline}" BorderThickness="0" />
+                            <DatePicker 
+                                SelectedDate="{Binding Deadline}"
+                                BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Created" Width="*" IsReadOnly="True">
+                <DataGridTextColumn
+                    Header="Source"
+                    Width="75"
+                    Binding="{Binding Source}" />
+
+                <DataGridTemplateColumn 
+                    Header="Created" 
+                    Width="95"
+                    IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker
