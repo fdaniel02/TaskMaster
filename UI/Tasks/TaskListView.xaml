@@ -49,7 +49,8 @@
             ItemsSource="{Binding Source={StaticResource projects}, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedProject}"
             CanUserAddRows="False"
-            AutoGenerateColumns="False">
+            AutoGenerateColumns="False"
+            HorizontalScrollBarVisibility="Hidden">
 
             <DataGrid.GroupStyle>
                 <GroupStyle ContainerStyle="{StaticResource ProjectGroupStyle}">
