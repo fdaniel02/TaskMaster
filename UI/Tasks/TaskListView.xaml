@@ -75,14 +75,34 @@
                 <DataGridTextColumn
                     Header="Priority"
                     Width="75"
-                    Binding="{Binding Priority}" />
+                    Binding="{Binding Priority}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
 
-                <DataGridTemplateColumn 
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="Critical">
+                                    <Setter Property="Background" Value="#d35d6e" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="High">
+                                    <Setter Property="Background" Value="#efb08c" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="Normal">
+                                    <Setter Property="Background" Value="#5aa469" />
+                                </Trigger>
+                                <Trigger Property="Text" Value="Minor">
+                                    <Setter Property="Background" Value="#c5d7bd" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn
                     Header="Deadline"
                     Width="95">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <DatePicker 
+                            <DatePicker
                                 SelectedDate="{Binding Deadline}"
                                 BorderThickness="0" />
                         </DataTemplate>
@@ -94,8 +114,8 @@
                     Width="75"
                     Binding="{Binding Source}" />
 
-                <DataGridTemplateColumn 
-                    Header="Created" 
+                <DataGridTemplateColumn
+                    Header="Created"
                     Width="95"
                     IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
