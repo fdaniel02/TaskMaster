@@ -67,6 +67,7 @@
             Margin="0 0 5 5"
             TextWrapping="Wrap"
             AcceptsReturn="True"
+            VerticalScrollBarVisibility="Auto"
             Text="{Binding Project.Details, UpdateSourceTrigger=PropertyChanged}" />
 
         <ComboBox
