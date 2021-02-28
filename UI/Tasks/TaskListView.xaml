@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:UI.Tasks.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -20,14 +21,6 @@
 
     <Grid>
 
-        <Grid.Resources>
-            <CollectionViewSource x:Key="projects" Source="{Binding Projects}">
-                <CollectionViewSource.GroupDescriptions>
-                    <PropertyGroupDescription PropertyName="State" />
-                </CollectionViewSource.GroupDescriptions>
-            </CollectionViewSource>
-        </Grid.Resources>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
@@ -40,6 +33,11 @@
                     <ColumnDefinition Width="110" />
                 </Grid.ColumnDefinitions>
 
+                <mah:ToggleSwitch
+                    OffContent="Closed hidden"
+                    OnContent="Closed visible"
+                    IsOn="{Binding ShowClosedProjects}" />
+
                 <Button
                     Grid.Column="1"
                     Height="30"
@@ -51,7 +49,7 @@
         <DataGrid
             IsReadOnly="True"
             Grid.Row="1"
-            ItemsSource="{Binding Source={StaticResource projects}, UpdateSourceTrigger=PropertyChanged}"
+            ItemsSource="{Binding ProjectView}"
             SelectedItem="{Binding SelectedProject}"
             CanUserAddRows="False"
             AutoGenerateColumns="False"
@@ -105,7 +103,8 @@
 
                 <DataGridTemplateColumn
                     Header="Deadline"
-                    Width="95">
+                    Width="95"
+                    SortMemberPath="Deadline">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker
@@ -124,13 +123,13 @@
                 <DataGridTemplateColumn
                     Header="Created"
                     Width="95"
-                    IsReadOnly="True">
+                    IsReadOnly="True"
+                    SortMemberPath="Deadline">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker
                                 IsEnabled="False"
                                 SelectedDate="{Binding Created}"
-                                Background="AliceBlue"
                                 BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -56,7 +56,7 @@ namespace UI.Tasks.Converters
                 _ when offset < 1 => Color.FromRgb(189, 32, 0),
                 _ when offset < 2 => Color.FromRgb(250, 30, 14),
                 _ when offset < 5 => Color.FromRgb(255, 190, 15),
-                _ => Color.FromRgb(155, 155, 155),
+                _ => Color.FromRgb(255, 255, 255),
             };
     }
 }
