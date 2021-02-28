@@ -17,6 +17,7 @@
 
     <UserControl.Resources>
         <local:DeadlineColorConverter x:Key="DeadlineColorConverter" />
+        <local:PriorityColorConverter x:Key="PriorityColorConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -48,6 +49,7 @@
 
         <DataGrid
             IsReadOnly="True"
+            GridLinesVisibility="Horizontal"
             Grid.Row="1"
             ItemsSource="{Binding ProjectView}"
             SelectedItem="{Binding SelectedProject}"
@@ -76,30 +78,19 @@
                     Width="65"
                     Binding="{Binding State}" />
 
-                <DataGridTextColumn
+                <DataGridTemplateColumn
                     Header="Priority"
                     Width="75"
-                    Binding="{Binding Priority}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="{x:Type TextBlock}">
+                    SortMemberPath="Priority">
 
-                            <Style.Triggers>
-                                <Trigger Property="Text" Value="Critical">
-                                    <Setter Property="Background" Value="#d35d6e" />
-                                </Trigger>
-                                <Trigger Property="Text" Value="High">
-                                    <Setter Property="Background" Value="#efb08c" />
-                                </Trigger>
-                                <Trigger Property="Text" Value="Normal">
-                                    <Setter Property="Background" Value="#5aa469" />
-                                </Trigger>
-                                <Trigger Property="Text" Value="Minor">
-                                    <Setter Property="Background" Value="#c5d7bd" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label
+                                Content="{Binding Priority}"
+                                Background="{Binding Priority, Converter={StaticResource PriorityColorConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn
                     Header="Deadline"
