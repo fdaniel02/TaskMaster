@@ -4,8 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:UI.Tasks.Converters"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:UI.Tasks.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -136,7 +136,6 @@
                             <DatePicker
                                 IsEnabled="False"
                                 SelectedDate="{Binding Created}"
-                                Background="AliceBlue"
                                 BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
