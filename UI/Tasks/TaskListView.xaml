@@ -21,14 +21,6 @@
 
     <Grid>
 
-        <Grid.Resources>
-            <CollectionViewSource x:Key="projects" Source="{Binding Projects}">
-                <CollectionViewSource.GroupDescriptions>
-                    <PropertyGroupDescription PropertyName="State" />
-                </CollectionViewSource.GroupDescriptions>
-            </CollectionViewSource>
-        </Grid.Resources>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
             <RowDefinition Height="*" />
@@ -57,7 +49,7 @@
         <DataGrid
             IsReadOnly="True"
             Grid.Row="1"
-            ItemsSource="{Binding Source={StaticResource projects}, UpdateSourceTrigger=PropertyChanged}"
+            ItemsSource="{Binding ProjectView}"
             SelectedItem="{Binding SelectedProject}"
             CanUserAddRows="False"
             AutoGenerateColumns="False"
@@ -111,7 +103,8 @@
 
                 <DataGridTemplateColumn
                     Header="Deadline"
-                    Width="95">
+                    Width="95"
+                    SortMemberPath="Deadline">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker
@@ -130,7 +123,8 @@
                 <DataGridTemplateColumn
                     Header="Created"
                     Width="95"
-                    IsReadOnly="True">
+                    IsReadOnly="True"
+                    SortMemberPath="Deadline">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker

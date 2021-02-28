@@ -1,5 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
+using Domain.Enums;
 using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
@@ -14,8 +17,6 @@ namespace UI.Tasks
 
         private readonly IEventAggregator _eventAggregator;
 
-        private readonly DelegateCommand _addProjectCommand;
-
         private ObservableCollection<Project> _projects;
 
         private Project _selectedProject;
@@ -29,10 +30,12 @@ namespace UI.Tasks
 
             eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
 
-            _addProjectCommand = new DelegateCommand(AddProject);
+            AddProjectCommand = new DelegateCommand(AddProject);
         }
 
-        public DelegateCommand AddProjectCommand => _addProjectCommand;
+        public DelegateCommand AddProjectCommand { get; }
+
+        public ICollectionView ProjectView { get; private set; }
 
         public ObservableCollection<Project> Projects
         {
@@ -53,7 +56,11 @@ namespace UI.Tasks
         public bool ShowClosedProjects
         {
             get => _showClosedProjects;
-            set => SetProperty(ref _showClosedProjects, value);
+            set
+            {
+                SetProperty(ref _showClosedProjects, value);
+                ProjectView.Refresh();
+            }
         }
 
         public void Load()
@@ -68,6 +75,22 @@ namespace UI.Tasks
             Projects = new ObservableCollection<Project>(projects);
 
             SelectedProject = selectedProject;
+
+            ProjectView = CollectionViewSource.GetDefaultView(Projects);
+
+            ProjectView.Filter = ProjectFilter;
+            ProjectView.GroupDescriptions.Add(new PropertyGroupDescription("State"));
+            OnPropertyChanged(nameof(ProjectView));
+        }
+
+        private bool ProjectFilter(object p)
+        {
+            if (p is not Project project)
+            {
+                return false;
+            }
+
+            return ShowClosedProjects || project.State != ProjectStates.Closed;
         }
 
         private void AddProject()
