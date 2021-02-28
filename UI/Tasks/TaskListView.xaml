@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:UI.Tasks.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -12,6 +13,10 @@
             <b:CallMethodAction TargetObject="{Binding}" MethodName="Load" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <local:DeadlineColorConverter x:Key="DeadlineColorConverter" />
+    </UserControl.Resources>
 
     <Grid>
 
@@ -105,6 +110,7 @@
                         <DataTemplate>
                             <DatePicker
                                 SelectedDate="{Binding Deadline}"
+                                Background="{Binding Deadline, Converter={StaticResource DeadlineColorConverter}}"
                                 BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -124,6 +130,7 @@
                             <DatePicker
                                 IsEnabled="False"
                                 SelectedDate="{Binding Created}"
+                                Background="AliceBlue"
                                 BorderThickness="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
