@@ -165,7 +165,11 @@
                                         }
                                     }" />
 
-                                <TextBlock
+                                <TextBox
+                                    Padding="0"
+                                    Height="18"
+                                    MinHeight="18"
+                                    BorderThickness="0"
                                     Grid.Column="1"
                                     TextWrapping="Wrap"
                                     TextAlignment="Justify"
