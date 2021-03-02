@@ -2,6 +2,6 @@
 {
     public interface INotificationService
     {
-        void ShowSuccess(string text);
+        void ShowSuccessMessage(string message);
     }
 }

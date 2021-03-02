@@ -14,16 +14,16 @@ namespace UI.Notifications
             _eventAggregator = eventAggregator;
         }
 
-        public void ShowSuccess(string text)
+        public void ShowSuccessMessage(string message)
         {
-            ShowNotification(text, NotificationTypes.Success);
+            ShowNotification(message, NotificationTypes.Success);
         }
 
-        private void ShowNotification(string text, NotificationTypes type)
+        private void ShowNotification(string message, NotificationTypes type)
         {
             var notification = new NotificationModel
             {
-                Text = text,
+                Text = message,
                 Type = type,
             };
 
