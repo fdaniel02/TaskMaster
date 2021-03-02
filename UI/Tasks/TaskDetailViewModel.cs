@@ -4,6 +4,8 @@ using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
 using Services;
+using UI.Notifications;
+using UI.Tasks.Constants;
 using UI.Tasks.Events;
 
 namespace UI.Tasks
@@ -14,16 +16,22 @@ namespace UI.Tasks
 
         private readonly IEventAggregator _eventAggregator;
 
+        private readonly INotificationService _notificationService;
+
         private Project _project;
 
         private string _comment;
 
         private string _actionItem;
 
-        public TaskDetailViewModel(IProjectService projectService, IEventAggregator eventAggregator)
+        public TaskDetailViewModel(
+            IProjectService projectService,
+            IEventAggregator eventAggregator,
+            INotificationService notificationService)
         {
             _projectService = projectService;
             _eventAggregator = eventAggregator;
+            _notificationService = notificationService;
 
             eventAggregator.GetEvent<ProjectSelectedEvent>().Subscribe(Load);
 
@@ -91,6 +99,8 @@ namespace UI.Tasks
 
             _projectService.SaveChanges(Project);
             _eventAggregator.GetEvent<UpdateProjectListEvent>().Publish();
+
+            _notificationService.ShowSuccessMessage(NotificationMessages.SaveSuccess);
 
             Load(Project);
         }

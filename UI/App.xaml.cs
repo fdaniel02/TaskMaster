@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Events;
 using Services;
+using UI.Notifications;
 using UI.Tasks;
 
 namespace UI
@@ -43,6 +44,7 @@ namespace UI
             services.AddScoped<TaskListViewModel>();
             services.AddScoped<TaskDetailViewModel>();
             services.AddScoped<IEventAggregator, EventAggregator>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             services.AddDbContext<TaskMasterContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("TaskMasterContext")));

@@ -15,6 +15,16 @@
             <tasks:TaskDetailView />
         </DataTemplate>
     </Window.Resources>
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout
+                Header="{Binding Notification.Text}"
+                Position="Bottom"
+                IsOpen="{Binding ShowNotification}"
+                Background="Green">
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
     <!--<Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>-->
