@@ -16,7 +16,7 @@ namespace UI.Tasks.Converters
                 return brush;
             }
 
-            var dayOffset = ConvertToWeekdays(DateTime.Now, deadline);
+            var dayOffset = ConvertToWeekdays(DateTime.Now.Date, deadline.Date);
             brush.Color = ConvertDayOffsetToColor(dayOffset);
 
             return brush;
@@ -36,7 +36,7 @@ namespace UI.Tasks.Converters
             }
 
             var days = 0;
-            while (startDate <= endDate)
+            while (startDate < endDate)
             {
                 if (startDate.DayOfWeek != DayOfWeek.Saturday && startDate.DayOfWeek != DayOfWeek.Sunday)
                 {
