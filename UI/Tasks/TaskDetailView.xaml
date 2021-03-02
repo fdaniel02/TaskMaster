@@ -167,7 +167,6 @@
 
                                 <TextBox
                                     Padding="0"
-                                    Height="18"
                                     MinHeight="18"
                                     BorderThickness="0"
                                     Grid.Column="1"
@@ -253,7 +252,10 @@
                             <TextBlock
                                 Grid.Row="1"
                                 Text="{Binding Created, StringFormat=yyyy-MM-dd HH:mm}" />
-                            <TextBlock
+                            <TextBox
+                                Padding="0"
+                                MinHeight="18"
+                                BorderThickness="0"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 TextWrapping="Wrap"
