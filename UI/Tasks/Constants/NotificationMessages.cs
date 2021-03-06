@@ -10,8 +10,8 @@
 
         public const string ActionItemCannotBeAdded = "Action item cannot be added!";
 
-        public const string ActionItemSaveErrorMissingProject = $"{ActionItemCannotBeAdded} {SaveProjectFirst}";
+        public const string ActionItemSaveErrorMissingProject = ActionItemCannotBeAdded + " " + SaveProjectFirst;
 
-        public const string ActionItemSaveErrorUnknown = $"{ActionItemCannotBeAdded} {UnknownError}";
+        public const string ActionItemSaveErrorUnknown = ActionItemCannotBeAdded + " " + UnknownError;
     }
 }
