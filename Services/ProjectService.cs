@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ardalis.GuardClauses;
 using Domain.Enums;
 using Domain.Models;
 using Domain.Repositories;
@@ -66,6 +67,8 @@ namespace Services
 
         public void AddActionItem(Project project, string actionItem)
         {
+            Guard.Against.Null(project?.ActionItems, nameof(project));
+
             var newActionItem = new ActionItem { Name = actionItem, Finished = false };
             project.ActionItems.Add(newActionItem);
 
