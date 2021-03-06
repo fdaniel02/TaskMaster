@@ -1,7 +1,7 @@
 name: .NET Core Desktop
 
 on: 
-  [push, pull_request]
+  [pull_request]
 
 jobs:
 
