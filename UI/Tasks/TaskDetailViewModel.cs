@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Domain.Models;
 using Prism.Commands;
@@ -120,9 +121,21 @@ namespace UI.Tasks
             _projectService.AddComment(Project, Comment);
         }
 
+        // TODO: move the command handlers to interfaces and use DI. Thus making unit testing easier
         private void AddActionItem()
         {
-            _projectService.AddActionItem(Project, ActionItem);
+            try
+            {
+                _projectService.AddActionItem(Project, ActionItem);
+            }
+            catch (ArgumentNullException)
+            {
+                _notificationService.ShowErrorMessage(NotificationMessages.ActionItemSaveErrorMissingProject);
+            }
+            catch (Exception)
+            {
+                _notificationService.ShowErrorMessage(NotificationMessages.ActionItemSaveErrorUnknown);
+            }
 
             Load(Project);
         }

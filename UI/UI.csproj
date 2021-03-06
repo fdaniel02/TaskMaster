@@ -7,6 +7,7 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <AssemblyName>TaskMaster</AssemblyName>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
