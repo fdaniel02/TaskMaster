@@ -9,15 +9,19 @@ namespace UI.Notifications
     {
         private readonly IEventAggregator _eventAggregator;
 
-        public NotificationService(IEventAggregator eventAggregator)
-        {
-            _eventAggregator = eventAggregator;
-        }
+        public NotificationService(IEventAggregator eventAggregator) => _eventAggregator = eventAggregator;
 
         public void ShowSuccessMessage(string message)
-        {
-            ShowNotification(message, NotificationTypes.Success);
-        }
+            => ShowNotification(message, NotificationTypes.Success);
+
+        public void ShowErrorMessage(string message)
+            => ShowNotification(message, NotificationTypes.Error);
+
+        public void ShowWarningMessage(string message)
+            => ShowNotification(message, NotificationTypes.Warning);
+
+        public void ShowInfoMessage(string message)
+            => ShowNotification(message, NotificationTypes.Info);
 
         private void ShowNotification(string message, NotificationTypes type)
         {
