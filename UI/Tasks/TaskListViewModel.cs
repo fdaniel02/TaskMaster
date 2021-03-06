@@ -74,7 +74,8 @@ namespace UI.Tasks
 
             Projects = new ObservableCollection<Project>(projects);
 
-            SelectedProject = selectedProject;
+            // The first project is selected by default
+            SelectedProject = selectedProject ?? projects.FirstOrDefault();
 
             ProjectView = CollectionViewSource.GetDefaultView(Projects);
 
