@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:StateAlias="clr-namespace:Domain.Enums;assembly=Domain"
-             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:tasks="clr-namespace:UI.Tasks"
              xmlns:behaviors="clr-namespace:UI.Tasks.Behaviours"
@@ -88,11 +87,11 @@
             ItemsSource="{Binding Source={StaticResource priorities}}"
             SelectedItem="{Binding Path=Project.Priority}" />
 
-        <mah:DateTimePicker
+        <DatePicker
             Grid.Column="1"
             Grid.Row="2"
             Margin="5 0 0 5"
-            SelectedDateTime="{Binding Project.Deadline}" />
+            SelectedDate="{Binding Project.Deadline}" />
 
         <TextBox
             Grid.Column="1"
@@ -100,15 +99,15 @@
             Margin="5 0 0 5"
             Text="{Binding Project.Source}" />
 
-        <mah:DateTimePicker
+        <DatePicker
             Grid.Column="1"
             Grid.Row="4"
             Margin="5 0 0 5"
-            IsClockVisible="False"
             IsTodayHighlighted="True"
             SelectedDateFormat="Short"
+            FirstDayOfWeek="Monday"
             IsEnabled="False"
-            SelectedDateTime="{Binding Project.Created}" />
+            SelectedDate="{Binding Project.Created}" />
 
         <Grid
             Grid.Row="5"
