@@ -2,12 +2,12 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
-using Domain.Enums;
 using Domain.Models;
 using Prism.Commands;
 using Prism.Events;
 using Services;
 using UI.Tasks.Events;
+using UI.Tasks.Filters;
 
 namespace UI.Tasks
 {
@@ -17,16 +17,24 @@ namespace UI.Tasks
 
         private readonly IEventAggregator _eventAggregator;
 
+        private readonly IProjectFilter _projectFilter;
+
         private ObservableCollection<Project> _projects;
 
         private Project _selectedProject;
 
         private bool _showClosedProjects = false;
 
-        public TaskListViewModel(IProjectService projectService, IEventAggregator eventAggregator)
+        private string _searchExpression;
+
+        public TaskListViewModel(
+            IProjectService projectService,
+            IEventAggregator eventAggregator,
+            IProjectFilter projectFilter)
         {
             _projectService = projectService;
             _eventAggregator = eventAggregator;
+            _projectFilter = projectFilter;
 
             eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
 
@@ -63,6 +71,16 @@ namespace UI.Tasks
             }
         }
 
+        public string SearchExpression
+        {
+            get => _searchExpression;
+            set
+            {
+                SetProperty(ref _searchExpression, value);
+                ProjectView.Refresh();
+            }
+        }
+
         public void Load()
         {
             var selectedProject = _selectedProject;
@@ -91,7 +109,7 @@ namespace UI.Tasks
                 return false;
             }
 
-            return ShowClosedProjects || project.State != ProjectStates.Closed;
+            return _projectFilter.FilterProject(project, SearchExpression, ShowClosedProjects);
         }
 
         private void AddProject()

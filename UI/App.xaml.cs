@@ -11,6 +11,7 @@ using Prism.Events;
 using Services;
 using UI.Notifications;
 using UI.Tasks;
+using UI.Tasks.Filters;
 
 namespace UI
 {
@@ -45,6 +46,7 @@ namespace UI
             services.AddScoped<TaskDetailViewModel>();
             services.AddScoped<IEventAggregator, EventAggregator>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IProjectFilter, ProjectFilter>();
 
             services.AddDbContext<TaskMasterContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("TaskMasterContext")));
