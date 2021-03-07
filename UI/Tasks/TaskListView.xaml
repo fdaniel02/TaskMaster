@@ -30,17 +30,24 @@
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="110" />
                 </Grid.ColumnDefinitions>
 
+                <TextBox
+                    Grid.Column="0"
+                    Text="{Binding SearchExpression, UpdateSourceTrigger=PropertyChanged}" />
+
                 <mah:ToggleSwitch
+                    Grid.Column="2"
                     OffContent="Closed hidden"
                     OnContent="Closed visible"
                     IsOn="{Binding ShowClosedProjects}" />
 
                 <Button
-                    Grid.Column="1"
+                    Grid.Column="3"
                     Height="30"
                     Content="NEW PROJECT"
                     Command="{Binding AddProjectCommand}" />
