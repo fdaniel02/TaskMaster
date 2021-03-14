@@ -20,7 +20,7 @@ namespace UI.Tasks.Filters
                 return false;
             }
 
-            return project.Name.Contains(searchExpression);
+            return project.Name.Contains(searchExpression, System.StringComparison.OrdinalIgnoreCase);
         }
 
         private static bool FilterClosedProjects(Project project, bool showClosedProjects)
