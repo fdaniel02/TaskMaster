@@ -17,7 +17,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.321">
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.333">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
