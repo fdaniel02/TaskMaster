@@ -39,9 +39,12 @@ namespace UI.Tasks
             eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
 
             AddProjectCommand = new DelegateCommand(AddProject);
+            SearchCommand = new DelegateCommand(SearchProject);
         }
 
         public DelegateCommand AddProjectCommand { get; }
+
+        public DelegateCommand SearchCommand { get; }
 
         public ICollectionView ProjectView { get; private set; }
 
@@ -77,7 +80,6 @@ namespace UI.Tasks
             set
             {
                 SetProperty(ref _searchExpression, value);
-                ProjectView.Refresh();
             }
         }
 
@@ -115,6 +117,11 @@ namespace UI.Tasks
         private void AddProject()
         {
             SelectedProject = new Project();
+        }
+
+        private void SearchProject()
+        {
+            ProjectView.Refresh();
         }
     }
 }
