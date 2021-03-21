@@ -38,7 +38,13 @@
 
                 <TextBox
                     Grid.Column="0"
-                    Text="{Binding SearchExpression, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding SearchExpression, UpdateSourceTrigger=PropertyChanged }">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Key="Return"
+                            Command="{Binding SearchCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
 
                 <mah:ToggleSwitch
                     Grid.Column="2"
