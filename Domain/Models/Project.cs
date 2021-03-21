@@ -20,9 +20,9 @@ namespace Domain.Models
 
         public ProjectStates State { get; set; } = ProjectStates.Inbox;
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-        public ICollection<ActionItem> ActionItems { get; set; }
+        public ICollection<ActionItem> ActionItems { get; set; } = new List<ActionItem>();
 
         public string Source { get; set; }
 
