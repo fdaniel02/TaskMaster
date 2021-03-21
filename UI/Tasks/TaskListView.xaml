@@ -36,7 +36,11 @@
                     <ColumnDefinition Width="110" />
                 </Grid.ColumnDefinitions>
 
+                <Label
+                    Content="_Find"
+                    Target="{Binding ElementName=SearchBox}" />
                 <TextBox
+                    Name="SearchBox"
                     Grid.Column="0"
                     Text="{Binding SearchExpression, UpdateSourceTrigger=PropertyChanged }">
                     <TextBox.InputBindings>
