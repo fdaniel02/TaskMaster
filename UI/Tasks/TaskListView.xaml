@@ -52,7 +52,7 @@
 
                 <mah:ToggleSwitch
                     Grid.Column="2"
-                    OffContent="Closed hidden"
+                    OffContent="Closed hiddena"
                     OnContent="Closed visible"
                     IsOn="{Binding ShowClosedProjects}" />
 
