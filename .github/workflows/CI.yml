@@ -1,7 +1,11 @@
 name: .NET Core Desktop
 
 on: 
-  [pull_request]
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
 
@@ -57,5 +61,5 @@ jobs:
       shell: powershell
       run: |
         .\.sonar\scanner\dotnet-sonarscanner begin /k:"fdaniel02_TaskMaster" /o:"fdaniel02" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=**/coverage.cobertura.xml
-        dotnet build --configuration Debug
+        dotnet build --configuration Release
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
