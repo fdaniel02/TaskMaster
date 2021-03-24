@@ -40,11 +40,14 @@ namespace UI.Tasks
 
             AddProjectCommand = new DelegateCommand(AddProject);
             SearchCommand = new DelegateCommand(SearchProject);
+            ClearSearchCommand = new DelegateCommand(ClearSearch);
         }
 
         public DelegateCommand AddProjectCommand { get; }
 
         public DelegateCommand SearchCommand { get; }
+
+        public DelegateCommand ClearSearchCommand { get; }
 
         public ICollectionView ProjectView { get; private set; }
 
@@ -122,6 +125,12 @@ namespace UI.Tasks
         private void SearchProject()
         {
             ProjectView.Refresh();
+        }
+
+        private void ClearSearch()
+        {
+            SearchExpression = string.Empty;
+            SearchProject();
         }
     }
 }

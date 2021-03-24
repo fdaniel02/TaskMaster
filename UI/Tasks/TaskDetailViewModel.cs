@@ -61,19 +61,19 @@ namespace UI.Tasks
         }
 
         public ObservableCollection<Comment> Comments
-            => Project is null
+            => Project?.Comments is null
                 ? new()
-                : new(Project.Comments);
+                : new(Project?.Comments);
 
         public ObservableCollection<ActionItem> OpenActionItems
-            => Project is null
+            => Project?.Comments is null
                 ? new()
-                : new(Project.ActionItems.Where(a => !a.Finished));
+                : new(Project?.ActionItems.Where(a => !a.Finished));
 
         public ObservableCollection<ActionItem> ClosedActionItems
-            => Project is null
+            => Project?.Comments is null
                 ? new()
-                : new(Project.ActionItems.Where(a => a.Finished));
+                : new(Project?.ActionItems.Where(a => a.Finished));
 
         public string ActionItem
         {
