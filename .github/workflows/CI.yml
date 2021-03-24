@@ -31,6 +31,7 @@ jobs:
         path: ~\sonar\cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
+        
     - name: Cache SonarCloud scanner
       id: cache-sonar-scanner
       uses: actions/cache@v1
@@ -38,6 +39,7 @@ jobs:
         path: .\.sonar\scanner
         key: ${{ runner.os }}-sonar-scanner
         restore-keys: ${{ runner.os }}-sonar-scanner
+        
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       shell: powershell
@@ -45,12 +47,20 @@ jobs:
         New-Item -Path .\.sonar\scanner -ItemType Directory
         dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
+    - name: Unit Tests
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       shell: powershell
       run: |
-        .\.sonar\scanner\dotnet-sonarscanner begin /k:"fdaniel02_TaskMaster" /o:"fdaniel02" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+        .\.sonar\scanner\dotnet-sonarscanner begin 
+        /k:"fdaniel02_TaskMaster" 
+        /o:"fdaniel02" 
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}" 
+        /d:sonar.host.url="https://sonarcloud.io" 
+        /d:sonar.cs.opencover.reportsPaths=UI.Test/coverage.cobertura.xml
         dotnet build --configuration Debug
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
