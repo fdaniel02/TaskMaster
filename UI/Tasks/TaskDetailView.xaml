@@ -65,11 +65,11 @@
             Name="ProjectName" />
 
         <TextBox
-            Height="133"
+            Height="136"
             Grid.Column="0"
             Grid.Row="1"
             Grid.RowSpan="4"
-            Margin="0 0 5 0"
+            Margin="0 0 5 3"
             TextWrapping="Wrap"
             AcceptsReturn="True"
             VerticalScrollBarVisibility="Auto"
