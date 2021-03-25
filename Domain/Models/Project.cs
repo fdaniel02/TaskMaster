@@ -27,5 +27,7 @@ namespace Domain.Models
         public string Source { get; set; }
 
         public ProjectPriorities Priority { get; set; } = ProjectPriorities.Normal;
+
+        public ICollection<ProjectTags> ProjectTags { get; set; } = new List<ProjectTags>();
     }
 }
