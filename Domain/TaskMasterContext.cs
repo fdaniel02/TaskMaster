@@ -22,12 +22,28 @@ namespace Domain
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<ProjectTags> ProjectTags { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TaskMasterContext).Assembly);
             modelBuilder.Entity<Project>().ToTable("Project");
             modelBuilder.Entity<ActionItem>().ToTable("ActionItem");
             modelBuilder.Entity<Comment>().ToTable("Comment");
+            modelBuilder.Entity<Tag>().ToTable("Tag");
+            modelBuilder.Entity<ProjectTags>().HasKey(p => new { p.ProjectId, p.TagId });
+
+            modelBuilder.Entity<ProjectTags>()
+                .HasOne(p => p.Project)
+                .WithMany(p => p.ProjectTags)
+                .HasForeignKey(p => p.ProjectId);
+
+            modelBuilder.Entity<ProjectTags>()
+                    .HasOne(p => p.Tag)
+                    .WithMany(p => p.ProjectTags)
+                    .HasForeignKey(p => p.TagId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
