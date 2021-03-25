@@ -57,52 +57,59 @@
             <RowDefinition Height="45" />
         </Grid.RowDefinitions>
         <TextBox
+            Height="31"
             Grid.Column="0"
             Grid.Row="0"
-            Margin="0 0 5 5"
+            Margin="0 0 5 3"
             Text="{Binding Project.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
             Name="ProjectName" />
 
         <TextBox
+            Height="133"
             Grid.Column="0"
             Grid.Row="1"
             Grid.RowSpan="4"
-            Margin="0 0 5 5"
+            Margin="0 0 5 0"
             TextWrapping="Wrap"
             AcceptsReturn="True"
             VerticalScrollBarVisibility="Auto"
             Text="{Binding Project.Details, UpdateSourceTrigger=PropertyChanged}" />
 
         <ComboBox
+            Height="31"
             Grid.Column="1"
             Grid.Row="0"
-            Margin="5 0 0 5"
+            Margin="5 0 0 3"
             ItemsSource="{Binding Source={StaticResource states}}"
             SelectedItem="{Binding Path=Project.State}" />
 
         <ComboBox
+            Height="31"
             Grid.Column="1"
             Grid.Row="1"
-            Margin="5 0 0 5"
+            Margin="5 0 0 3"
             ItemsSource="{Binding Source={StaticResource priorities}}"
             SelectedItem="{Binding Path=Project.Priority}" />
 
         <DatePicker
+            Height="31"
             Grid.Column="1"
             Grid.Row="2"
-            Margin="5 0 0 5"
+            Margin="5 0 0 3"
             SelectedDate="{Binding Project.Deadline}" />
 
         <TextBox
+            Height="31"
             Grid.Column="1"
             Grid.Row="3"
-            Margin="5 0 0 5"
+            Margin="5 0 0 0"
             Text="{Binding Project.Source}" />
 
         <DatePicker
+            Height="31"
             Grid.Column="1"
             Grid.Row="4"
-            Margin="5 0 0 5"
+            Margin="5 0 0 3"
             IsTodayHighlighted="True"
             SelectedDateFormat="Short"
             FirstDayOfWeek="Monday"
@@ -112,7 +119,7 @@
         <Grid
             Grid.Row="5"
             Grid.ColumnSpan="2"
-            Margin="0,0,5,10">
+            Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -127,7 +134,7 @@
                 HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
                 <TextBox
                     Text="{Binding ActionItem, UpdateSourceTrigger=PropertyChanged}">
