@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Domain.Models;
@@ -21,6 +22,8 @@ namespace UI.Tasks
 
         private Project _project;
 
+        private string _newTag;
+
         private string _comment;
 
         private string _actionItem;
@@ -39,6 +42,7 @@ namespace UI.Tasks
             SaveCommand = new DelegateCommand(SaveChanges, CanSave);
             AddActionItemCommand = new DelegateCommand(AddActionItem, CanAddActionItem);
             ToogleActionItemCommand = new DelegateCommand<ActionItem>(ToogleActionItem);
+            AddTagCommand = new DelegateCommand(AddTag);
             DeleteTagCommand = new DelegateCommand<ProjectTags>(DeleteTag);
         }
 
@@ -47,6 +51,8 @@ namespace UI.Tasks
         public DelegateCommand AddActionItemCommand { get; }
 
         public DelegateCommand<ActionItem> ToogleActionItemCommand { get; }
+
+        public DelegateCommand AddTagCommand { get; }
 
         public DelegateCommand<ProjectTags> DeleteTagCommand { get; }
 
@@ -60,7 +66,7 @@ namespace UI.Tasks
                 OnPropertyChanged(nameof(Comments));
                 OnPropertyChanged(nameof(OpenActionItems));
                 OnPropertyChanged(nameof(ClosedActionItems));
-                OnPropertyChanged(nameof(Tags));
+                OnPropertyChanged(nameof(ProjectTags));
             }
         }
 
@@ -79,10 +85,19 @@ namespace UI.Tasks
                 ? new()
                 : new(Project?.ActionItems.Where(a => a.Finished));
 
-        public ObservableCollection<ProjectTags> Tags
+        public ObservableCollection<ProjectTags> ProjectTags
             => Project?.ProjectTags is null
                 ? new()
                 : new(Project?.ProjectTags);
+
+        public ObservableCollection<string> Tags
+            => new(new List<string> { "Test1", "Test2", "TEst3", "Test3" });
+
+        public string NewTag
+        {
+            get => _newTag;
+            set => SetProperty(ref _newTag, value);
+        }
 
         public string ActionItem
         {
@@ -166,6 +181,10 @@ namespace UI.Tasks
 
             _projectService.SaveChanges(Project);
             Load(Project);
+        }
+
+        private void AddTag()
+        {
         }
 
         private void DeleteTag(ProjectTags tag)
