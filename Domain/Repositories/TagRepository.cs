@@ -16,5 +16,11 @@ namespace Domain.Repositories
         {
             return _context.Tags.AsQueryable();
         }
+
+        public void Add(Tag tag)
+        {
+            _context.Tags.AddAsync(tag);
+            _context.SaveChanges();
+        }
     }
 }

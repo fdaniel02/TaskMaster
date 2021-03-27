@@ -6,5 +6,7 @@ namespace Domain.Repositories
     public interface ITagRepository
     {
         IQueryable<Tag> GetAll();
+
+        void Add(Tag tag);
     }
 }
