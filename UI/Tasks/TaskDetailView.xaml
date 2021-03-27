@@ -57,38 +57,52 @@
             <RowDefinition Height="45" />
         </Grid.RowDefinitions>
 
+
+        <Grid
+            Grid.Column="0"
+            Grid.Row="0"
+            Margin="0 0 5 3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListView
+                Grid.Column="0"
+                Name="Tags"
+                ItemsSource="{Binding Tags}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel
+                            Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                            MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label 
+                            Background="LightGray"
+                            Content="{Binding Tag.Name}">
+                            <Label.InputBindings>
+                                <MouseBinding
+                                    Command="{Binding ElementName=Tags, Path=DataContext.DeleteTagCommand}"
+                                    CommandParameter="{Binding}"
+                                    MouseAction="RightClick" />
+                            </Label.InputBindings>
+                        </Label>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <TextBox Grid.Column="1"/>
+        </Grid>
+
         <TextBox
             Height="31"
             Grid.Column="0"
-            Grid.Row="0"
+            Grid.Row="1"
             Margin="0 0 5 3"
             Text="{Binding Project.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
             Name="ProjectName" />
-
-        <ListView
-            Name="Tags"
-            Grid.Row="1"
-            ItemsSource="{Binding Tags}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel
-                        Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                        MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Tag.Name}">
-                        <Label.InputBindings>
-                            <MouseBinding
-                                Command="{Binding ElementName=Tags, Path=DataContext.DeleteTagCommand}"
-                                CommandParameter="{Binding}"
-                                MouseAction="RightClick" />
-                        </Label.InputBindings>
-                    </Label>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
         <TextBox
             Height="101"
