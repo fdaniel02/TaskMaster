@@ -75,6 +75,19 @@ namespace Services
             SaveChanges(project);
         }
 
+        public void AddTag(Project project, Tag tag)
+        {
+            var projectTag = new ProjectTags { Project = project, Tag = tag };
+            project.ProjectTags.Add(projectTag);
+        }
+
+        public void RemoveTag(Project project, ProjectTags tag)
+        {
+            project.ProjectTags.Remove(tag);
+
+            SaveChanges(project);
+        }
+
         private bool IsNewProject(int projectId)
         {
             return projectId <= 0;

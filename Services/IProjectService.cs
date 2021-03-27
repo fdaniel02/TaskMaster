@@ -20,5 +20,9 @@ namespace Services
         void AddComment(Project project, string comment);
 
         void AddActionItem(Project project, string actionItem);
+
+        public void AddTag(Project project, Tag tag);
+
+        public void RemoveTag(Project project, ProjectTags tag);
     }
 }

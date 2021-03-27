@@ -39,7 +39,7 @@ namespace UI.Tasks
             SaveCommand = new DelegateCommand(SaveChanges, CanSave);
             AddActionItemCommand = new DelegateCommand(AddActionItem, CanAddActionItem);
             ToogleActionItemCommand = new DelegateCommand<ActionItem>(ToogleActionItem);
-            DeleteTagCommand = new DelegateCommand(DeleteTag);
+            DeleteTagCommand = new DelegateCommand<ProjectTags>(DeleteTag);
         }
 
         public DelegateCommand SaveCommand { get; }
@@ -48,7 +48,7 @@ namespace UI.Tasks
 
         public DelegateCommand<ActionItem> ToogleActionItemCommand { get; }
 
-        public DelegateCommand DeleteTagCommand { get; }
+        public DelegateCommand<ProjectTags> DeleteTagCommand { get; }
 
         public Project Project
         {
@@ -60,6 +60,7 @@ namespace UI.Tasks
                 OnPropertyChanged(nameof(Comments));
                 OnPropertyChanged(nameof(OpenActionItems));
                 OnPropertyChanged(nameof(ClosedActionItems));
+                OnPropertyChanged(nameof(Tags));
             }
         }
 
@@ -77,6 +78,11 @@ namespace UI.Tasks
             => Project?.Comments is null
                 ? new()
                 : new(Project?.ActionItems.Where(a => a.Finished));
+
+        public ObservableCollection<ProjectTags> Tags
+            => Project?.ProjectTags is null
+                ? new()
+                : new(Project?.ProjectTags);
 
         public string ActionItem
         {
@@ -162,8 +168,10 @@ namespace UI.Tasks
             Load(Project);
         }
 
-        private void DeleteTag()
+        private void DeleteTag(ProjectTags tag)
         {
+            _projectService.RemoveTag(Project, tag);
+            Load(Project);
         }
     }
 }
