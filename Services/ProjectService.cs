@@ -12,9 +12,12 @@ namespace Services
     {
         private readonly IProjectRepository _projectRepository;
 
-        public ProjectService(IProjectRepository projectRepository)
+        private readonly ITagService _tagService;
+
+        public ProjectService(IProjectRepository projectRepository, ITagService tagService)
         {
             _projectRepository = projectRepository;
+            _tagService = tagService;
         }
 
         public List<Project> GetProjects()
@@ -75,10 +78,14 @@ namespace Services
             SaveChanges(project);
         }
 
-        public void AddTag(Project project, Tag tag)
+        public void AddTag(Project project, string tagName)
         {
+            var tag = _tagService.GetTagByName(tagName) ?? _tagService.CreateTag(tagName);
+
             var projectTag = new ProjectTags { Project = project, Tag = tag };
             project.ProjectTags.Add(projectTag);
+
+            SaveChanges(project);
         }
 
         public void RemoveTag(Project project, ProjectTags tag)
