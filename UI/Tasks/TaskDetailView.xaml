@@ -64,11 +64,35 @@
             Text="{Binding Project.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
             Name="ProjectName" />
 
-        <TextBox
-            Height="136"
-            Grid.Column="0"
+        <ListView
+            Name="Tags"
             Grid.Row="1"
-            Grid.RowSpan="4"
+            ItemsSource="{Binding Project.ProjectTags}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel
+                        Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                        MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Tag.Name}">
+                        <Label.InputBindings>
+                            <MouseBinding
+                                Command="{Binding ElementName=Tags, Path=DataContext.DeleteTagCommand}"
+                                MouseAction="RightClick" />
+                        </Label.InputBindings>
+                    </Label>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <TextBox
+            Height="101"
+            Grid.Column="0"
+            Grid.Row="2"
+            Grid.RowSpan="3"
             Margin="0 0 5 3"
             TextWrapping="Wrap"
             AcceptsReturn="True"
