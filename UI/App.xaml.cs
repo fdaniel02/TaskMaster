@@ -41,6 +41,7 @@ namespace UI
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<TaskListViewModel>();
