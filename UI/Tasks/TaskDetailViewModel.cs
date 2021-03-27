@@ -39,6 +39,7 @@ namespace UI.Tasks
             SaveCommand = new DelegateCommand(SaveChanges, CanSave);
             AddActionItemCommand = new DelegateCommand(AddActionItem, CanAddActionItem);
             ToogleActionItemCommand = new DelegateCommand<ActionItem>(ToogleActionItem);
+            DeleteTagCommand = new DelegateCommand(DeleteTag);
         }
 
         public DelegateCommand SaveCommand { get; }
@@ -46,6 +47,8 @@ namespace UI.Tasks
         public DelegateCommand AddActionItemCommand { get; }
 
         public DelegateCommand<ActionItem> ToogleActionItemCommand { get; }
+
+        public DelegateCommand DeleteTagCommand { get; }
 
         public Project Project
         {
@@ -157,6 +160,10 @@ namespace UI.Tasks
 
             _projectService.SaveChanges(Project);
             Load(Project);
+        }
+
+        private void DeleteTag()
+        {
         }
     }
 }
