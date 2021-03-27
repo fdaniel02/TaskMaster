@@ -122,7 +122,7 @@ namespace UI.Tasks
 
         public void Load(Project project)
         {
-            Tags = new(_tagService.GetTags());
+            Tags = new(_tagService.GetTagNames());
 
             Project = project;
             Comment = string.Empty;
@@ -191,6 +191,7 @@ namespace UI.Tasks
 
         private void AddTag()
         {
+            _projectService.AddTag(Project, NewTag);
             Load(Project);
         }
 
