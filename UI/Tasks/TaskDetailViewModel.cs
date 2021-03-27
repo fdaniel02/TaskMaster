@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Domain.Models;
@@ -16,6 +15,8 @@ namespace UI.Tasks
     {
         private readonly IProjectService _projectService;
 
+        private readonly ITagService _tagService;
+
         private readonly IEventAggregator _eventAggregator;
 
         private readonly INotificationService _notificationService;
@@ -30,10 +31,12 @@ namespace UI.Tasks
 
         public TaskDetailViewModel(
             IProjectService projectService,
+            ITagService tagService,
             IEventAggregator eventAggregator,
             INotificationService notificationService)
         {
             _projectService = projectService;
+            _tagService = tagService;
             _eventAggregator = eventAggregator;
             _notificationService = notificationService;
 
@@ -67,6 +70,7 @@ namespace UI.Tasks
                 OnPropertyChanged(nameof(OpenActionItems));
                 OnPropertyChanged(nameof(ClosedActionItems));
                 OnPropertyChanged(nameof(ProjectTags));
+                OnPropertyChanged(nameof(Tags));
             }
         }
 
@@ -90,8 +94,7 @@ namespace UI.Tasks
                 ? new()
                 : new(Project?.ProjectTags);
 
-        public ObservableCollection<string> Tags
-            => new(new List<string> { "Test1", "Test2", "TEst3", "Test3" });
+        public ObservableCollection<string> Tags { get; private set; }
 
         public string NewTag
         {
@@ -119,9 +122,12 @@ namespace UI.Tasks
 
         public void Load(Project project)
         {
+            Tags = new(_tagService.GetTags());
+
             Project = project;
             Comment = string.Empty;
             ActionItem = string.Empty;
+            NewTag = string.Empty;
         }
 
         private void SaveChanges()
@@ -185,6 +191,7 @@ namespace UI.Tasks
 
         private void AddTag()
         {
+            Load(Project);
         }
 
         private void DeleteTag(ProjectTags tag)

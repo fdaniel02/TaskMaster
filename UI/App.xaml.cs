@@ -42,6 +42,7 @@ namespace UI
         {
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ITagService, TagService>();
             services.AddScoped<TaskListViewModel>();
             services.AddScoped<TaskDetailViewModel>();
             services.AddScoped<IEventAggregator, EventAggregator>();
