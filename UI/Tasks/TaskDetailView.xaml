@@ -83,7 +83,7 @@
                             Content="{Binding Tag.Name}">
                             <Label.InputBindings>
                                 <MouseBinding
-                                    Command="{Binding ElementName=ProjectTags, Path=DataContext.DeleteTagCommand}"
+                                    Command="{Binding ElementName=Tags, Path=DataContext.DeleteTagCommand}"
                                     CommandParameter="{Binding}"
                                     MouseAction="RightClick" />
                             </Label.InputBindings>
