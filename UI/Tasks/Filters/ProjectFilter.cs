@@ -1,14 +1,29 @@
-﻿using Domain.Enums;
+﻿using System;
+using System.Linq;
+using Domain.Enums;
 using Domain.Models;
 
 namespace UI.Tasks.Filters
 {
     public class ProjectFilter : IProjectFilter
     {
-        public bool FilterProject(Project project, string searchExpression, bool showClosedProjects)
-            => FilterSearchExpression(project, searchExpression) && FilterClosedProjects(project, showClosedProjects);
+        public bool FilterProject(Project project, string searchExpression, string tagFilter, bool showClosedProjects)
+        {
+            if (!FilterSearchExpression(project, searchExpression))
+            {
+                return false;
+            }
 
-        private static bool FilterSearchExpression(Project project, string searchExpression)
+            if (!FilterTag(project, tagFilter))
+            {
+                return false;
+            }
+
+            return FilterClosedProjects(project, showClosedProjects);
+        }
+
+        // TODO: move these to separate classes
+        private bool FilterSearchExpression(Project project, string searchExpression)
         {
             if (string.IsNullOrWhiteSpace(searchExpression))
             {
@@ -23,7 +38,17 @@ namespace UI.Tasks.Filters
             return project.Name.Contains(searchExpression, System.StringComparison.OrdinalIgnoreCase);
         }
 
-        private static bool FilterClosedProjects(Project project, bool showClosedProjects)
+        private bool FilterTag(Project project, string tagFilter)
+        {
+            if (string.IsNullOrWhiteSpace(tagFilter))
+            {
+                return true;
+            }
+
+            return project.ProjectTags.Any(t => t.Tag.Name.Equals(tagFilter, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private bool FilterClosedProjects(Project project, bool showClosedProjects)
         {
             return showClosedProjects || project.State != ProjectStates.Closed;
         }

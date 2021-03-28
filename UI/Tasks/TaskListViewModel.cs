@@ -127,7 +127,7 @@ namespace UI.Tasks
                 return false;
             }
 
-            return _projectFilter.FilterProject(project, SearchExpression, ShowClosedProjects);
+            return _projectFilter.FilterProject(project, SearchExpression, SearchTag, ShowClosedProjects);
         }
 
         private void AddProject()

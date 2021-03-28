@@ -4,6 +4,6 @@ namespace UI.Tasks.Filters
 {
     public interface IProjectFilter
     {
-        bool FilterProject(Project project, string filterExpression, bool showClosedProjects);
+        bool FilterProject(Project project, string filterExpression, string tagFilter, bool showClosedProjects);
     }
 }
