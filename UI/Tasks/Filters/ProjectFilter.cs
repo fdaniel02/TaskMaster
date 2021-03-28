@@ -1,56 +1,29 @@
-﻿using System;
-using System.Linq;
-using Domain.Enums;
+﻿using System.Collections.Generic;
 using Domain.Models;
+using UI.Tasks.Filters.ProjectFilterOptions;
 
 namespace UI.Tasks.Filters
 {
     public class ProjectFilter : IProjectFilter
     {
-        public bool FilterProject(Project project, string searchExpression, string tagFilter, bool showClosedProjects)
+        private readonly IEnumerable<IProjectFilterOption> _projectFilters;
+
+        public ProjectFilter(IEnumerable<IProjectFilterOption> projectFilters)
         {
-            if (!FilterSearchExpression(project, searchExpression))
-            {
-                return false;
-            }
-
-            if (!FilterTag(project, tagFilter))
-            {
-                return false;
-            }
-
-            return FilterClosedProjects(project, showClosedProjects);
+            _projectFilters = projectFilters;
         }
 
-        // TODO: move these to separate classes
-        private bool FilterSearchExpression(Project project, string searchExpression)
+        public bool FilterProject(Project project, ProjectFilterArgs args)
         {
-            if (string.IsNullOrWhiteSpace(searchExpression))
+            foreach (var filter in _projectFilters)
             {
-                return true;
+                if (!filter.Filter(project, args))
+                {
+                    return false;
+                }
             }
 
-            if (string.IsNullOrWhiteSpace(project.Name))
-            {
-                return false;
-            }
-
-            return project.Name.Contains(searchExpression, System.StringComparison.OrdinalIgnoreCase);
-        }
-
-        private bool FilterTag(Project project, string tagFilter)
-        {
-            if (string.IsNullOrWhiteSpace(tagFilter))
-            {
-                return true;
-            }
-
-            return project.ProjectTags.Any(t => t.Tag.Name.Equals(tagFilter, StringComparison.OrdinalIgnoreCase));
-        }
-
-        private bool FilterClosedProjects(Project project, bool showClosedProjects)
-        {
-            return showClosedProjects || project.State != ProjectStates.Closed;
+            return true;
         }
     }
 }

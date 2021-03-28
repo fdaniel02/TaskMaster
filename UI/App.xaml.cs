@@ -12,6 +12,7 @@ using Services;
 using UI.Notifications;
 using UI.Tasks;
 using UI.Tasks.Filters;
+using UI.Tasks.Filters.ProjectFilterOptions;
 
 namespace UI
 {
@@ -49,6 +50,10 @@ namespace UI
             services.AddScoped<IEventAggregator, EventAggregator>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IProjectFilter, ProjectFilter>();
+
+            services.AddScoped<IProjectFilterOption, FilterName>();
+            services.AddScoped<IProjectFilterOption, FilterTag>();
+            services.AddScoped<IProjectFilterOption, FilterClosed>();
 
             services.AddDbContext<TaskMasterContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("TaskMasterContext")));
