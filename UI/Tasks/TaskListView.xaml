@@ -30,56 +30,58 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="110" />
             </Grid.ColumnDefinitions>
 
-            <Label
-                Content="_Find"
-                Target="{Binding ElementName=SearchBox}" />
-            <TextBox
-                Height="31"
-                Name="SearchBox"
-                Text="{Binding SearchExpression, UpdateSourceTrigger=PropertyChanged }">
-                <TextBox.InputBindings>
-                    <KeyBinding
-                    Key="Return"
-                    Command="{Binding SearchCommand}" />
-                </TextBox.InputBindings>
-            </TextBox>
+            <StackPanel Orientation="Horizontal">
+                <Label
+                    Visibility="Collapsed"
+                    Content="_Find"
+                    Target="{Binding ElementName=SearchBox}" />
+                <TextBox
+                    Width="300"
+                    Height="31"
+                    Name="SearchBox"
+                    Text="{Binding SearchExpression, UpdateSourceTrigger=PropertyChanged }">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Key="Return"
+                            Command="{Binding SearchCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
 
-            <ComboBox
-                Height="31"
-                Grid.Column="1"
-                IsEditable="True"
-                Text="{Binding SearchTag, UpdateSourceTrigger=PropertyChanged}"
-                ItemsSource="{Binding Tags}">
-                <ComboBox.InputBindings>
-                    <KeyBinding
-                        Key="Return"
-                        Command="{Binding SearchCommand}" />
-                </ComboBox.InputBindings>
-            </ComboBox>
+                <ComboBox
+                    Width="100"
+                    Height="31"
+                    IsEditable="True"
+                    Text="{Binding SearchTag, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Tags}">
+                    <ComboBox.InputBindings>
+                        <KeyBinding
+                            Key="Return"
+                            Command="{Binding SearchCommand}" />
+                    </ComboBox.InputBindings>
+                </ComboBox>
 
-            <Button
-                Grid.Column="2"
-                Height="31"
-                Padding="2"
-                Command="{Binding ClearSearchCommand}">
-                <iconPacks:PackIconFontAwesome Height="25" Width="25" Kind="TimesCircleRegular" />
-            </Button>
+                <Button
+                    Width="30"
+                    Height="31"
+                    Padding="2"
+                    Command="{Binding ClearSearchCommand}">
+                    <iconPacks:PackIconFontAwesome Height="25" Width="25" Kind="TimesCircleRegular" />
+                </Button>
+            </StackPanel>
+
             <mah:ToggleSwitch
-                Grid.Column="4"
+                Grid.Column="1"
                 OffContent="Closed hidden"
                 OnContent="Closed visible"
                 IsOn="{Binding ShowClosedProjects}" />
 
             <Button
-                Grid.Column="5"
+                Grid.Column="2"
                 Height="31"
                 Content="NEW PROJECT"
                 Command="{Binding AddProjectCommand}" />
