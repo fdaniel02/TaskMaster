@@ -95,6 +95,16 @@ namespace Services
             SaveChanges(project);
         }
 
+        public List<string> GetSources()
+        {
+            return _projectRepository
+                .GetAll()
+                .Where(p => !string.IsNullOrWhiteSpace(p.Source))
+                .Select(p => p.Source)
+                .Distinct()
+                .ToList();
+        }
+
         private bool IsNewProject(int projectId)
         {
             return projectId <= 0;
