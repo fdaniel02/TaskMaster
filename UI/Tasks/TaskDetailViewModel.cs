@@ -71,6 +71,7 @@ namespace UI.Tasks
                 OnPropertyChanged(nameof(ClosedActionItems));
                 OnPropertyChanged(nameof(ProjectTags));
                 OnPropertyChanged(nameof(Tags));
+                OnPropertyChanged(nameof(Sources));
             }
         }
 
@@ -95,6 +96,8 @@ namespace UI.Tasks
                 : new(Project?.ProjectTags);
 
         public ObservableCollection<string> Tags { get; private set; }
+
+        public ObservableCollection<string> Sources { get; private set; }
 
         public string NewTag
         {
@@ -123,6 +126,7 @@ namespace UI.Tasks
         public void Load(Project project)
         {
             Tags = new(_tagService.GetTagNames());
+            Sources = new(_projectService.GetSources());
 
             Project = project;
             Comment = string.Empty;

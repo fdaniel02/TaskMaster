@@ -145,11 +145,13 @@
             Margin="5 0 0 3"
             SelectedDate="{Binding Project.Deadline}" />
 
-        <TextBox
+        <ComboBox
             Height="31"
             Grid.Column="1"
             Grid.Row="3"
             Margin="5 0 0 0"
+            IsEditable="True"
+            ItemsSource="{Binding Sources}"
             Text="{Binding Project.Source}" />
 
         <DatePicker

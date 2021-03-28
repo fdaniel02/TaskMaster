@@ -24,5 +24,7 @@ namespace Services
         public void AddTag(Project project, string tag);
 
         public void RemoveTag(Project project, ProjectTags tag);
+
+        List<string> GetSources();
     }
 }
