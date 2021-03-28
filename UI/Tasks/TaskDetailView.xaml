@@ -71,9 +71,7 @@
                 ItemsSource="{Binding ProjectTags}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel
-                            Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                            MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}" />
+                        <WrapPanel />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>

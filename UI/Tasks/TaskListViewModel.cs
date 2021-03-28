@@ -15,6 +15,8 @@ namespace UI.Tasks
     {
         private readonly IProjectService _projectService;
 
+        private readonly ITagService _tagService;
+
         private readonly IEventAggregator _eventAggregator;
 
         private readonly IProjectFilter _projectFilter;
@@ -27,12 +29,16 @@ namespace UI.Tasks
 
         private string _searchExpression;
 
+        private string _searchTag;
+
         public TaskListViewModel(
             IProjectService projectService,
+            ITagService tagService,
             IEventAggregator eventAggregator,
             IProjectFilter projectFilter)
         {
             _projectService = projectService;
+            _tagService = tagService;
             _eventAggregator = eventAggregator;
             _projectFilter = projectFilter;
 
@@ -80,10 +86,15 @@ namespace UI.Tasks
         public string SearchExpression
         {
             get => _searchExpression;
-            set
-            {
-                SetProperty(ref _searchExpression, value);
-            }
+            set => SetProperty(ref _searchExpression, value);
+        }
+
+        public ObservableCollection<string> Tags { get; private set; }
+
+        public string SearchTag
+        {
+            get => _searchTag;
+            set => SetProperty(ref _searchTag, value);
         }
 
         public void Load()
@@ -96,6 +107,7 @@ namespace UI.Tasks
                 .ThenBy(p => p.Priority);
 
             Projects = new ObservableCollection<Project>(projects);
+            Tags = new ObservableCollection<string>(_tagService.GetTagNames());
 
             // The first project is selected by default
             SelectedProject = selectedProject ?? projects.FirstOrDefault();
@@ -105,6 +117,7 @@ namespace UI.Tasks
             ProjectView.Filter = ProjectFilter;
             ProjectView.GroupDescriptions.Add(new PropertyGroupDescription("State"));
             OnPropertyChanged(nameof(ProjectView));
+            OnPropertyChanged(nameof(Tags));
         }
 
         private bool ProjectFilter(object p)
@@ -130,6 +143,7 @@ namespace UI.Tasks
         private void ClearSearch()
         {
             SearchExpression = string.Empty;
+            SearchTag = string.Empty;
             SearchProject();
         }
     }
