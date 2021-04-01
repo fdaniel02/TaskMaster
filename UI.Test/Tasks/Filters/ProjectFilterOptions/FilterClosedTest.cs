@@ -15,7 +15,7 @@ namespace UI.Test.Tasks.Filters.ProjectFilterOptions
         [InlineData(ProjectStates.Active, true, true)]
         [InlineData(ProjectStates.Closed, false, false)]
         [InlineData(ProjectStates.Backlog, false, true)]
-        public void Filter_ReturnsFilteredProject(ProjectStates state, bool showClosed, bool expected)
+        public void Filter_ReturnsCorrectResult(ProjectStates state, bool showClosed, bool expected)
         {
             var project = new Project { State = state };
             var projectFilterArgs = new ProjectFilterArgs { ShowClosed = showClosed };
