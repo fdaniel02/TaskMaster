@@ -43,7 +43,9 @@ namespace UI.Test.Tasks.Filters.ProjectFilterOptions
             var project = new Project { State = ProjectStates.Closed };
 
             var sut = new FilterClosed();
-            sut.Filter(project, null);
+            var actual = sut.Filter(project, null);
+
+            actual.Should().Be(true);
         }
     }
 }
