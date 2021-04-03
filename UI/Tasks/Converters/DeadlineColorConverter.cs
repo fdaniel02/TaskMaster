@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using UI.Tasks.Constants;
 
 namespace UI.Tasks.Converters
 {
@@ -10,9 +11,9 @@ namespace UI.Tasks.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var brush = new SolidColorBrush();
-            if (!DateTime.TryParse(value?.ToString(), out DateTime deadline))
+            if (!DateTime.TryParse(value?.ToString(), out var deadline))
             {
-                brush.Color = Color.FromRgb(255, 255, 255);
+                brush.Color = DeadlineColors.Default;
                 return brush;
             }
 
@@ -24,7 +25,7 @@ namespace UI.Tasks.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         // TODO: move to a separate class
@@ -49,14 +50,16 @@ namespace UI.Tasks.Converters
             return days;
         }
 
-        private Color ConvertDayOffsetToColor(int offset) =>
-            offset switch
+        private Color ConvertDayOffsetToColor(int offset)
+        {
+            return offset switch
             {
-                _ when offset < 0 => Color.FromRgb(140, 0, 0),
-                _ when offset < 1 => Color.FromRgb(189, 32, 0),
-                _ when offset < 2 => Color.FromRgb(250, 30, 14),
-                _ when offset < 5 => Color.FromRgb(255, 190, 15),
-                _ => Color.FromRgb(255, 255, 255),
+                _ when offset < 0 => DeadlineColors.Today,
+                _ when offset < 1 => DeadlineColors.Tomorrow,
+                _ when offset < 2 => DeadlineColors.TwoDays,
+                _ when offset < 5 => DeadlineColors.OneWeek,
+                _ => DeadlineColors.Default,
             };
+        }
     }
 }
