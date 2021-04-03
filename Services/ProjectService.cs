@@ -5,6 +5,7 @@ using Ardalis.GuardClauses;
 using Domain.Enums;
 using Domain.Models;
 using Domain.Repositories;
+using Services.TagActionHandlers;
 
 namespace Services
 {
@@ -14,10 +15,16 @@ namespace Services
 
         private readonly ITagService _tagService;
 
-        public ProjectService(IProjectRepository projectRepository, ITagService tagService)
+        private readonly IEnumerable<ITagActionHandler> _tagActionHandlers;
+
+        public ProjectService(
+            IProjectRepository projectRepository,
+            ITagService tagService,
+            IEnumerable<ITagActionHandler> tagActionHandlers)
         {
             _projectRepository = projectRepository;
             _tagService = tagService;
+            _tagActionHandlers = tagActionHandlers;
         }
 
         public List<Project> GetProjects()
@@ -86,6 +93,11 @@ namespace Services
             project.ProjectTags.Add(projectTag);
 
             SaveChanges(project);
+
+            foreach (var actionHandler in _tagActionHandlers)
+            {
+                actionHandler.Handle(tag, project, this);
+            }
         }
 
         public void RemoveTag(Project project, ProjectTags tag)
