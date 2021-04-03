@@ -47,9 +47,9 @@ namespace UI.Test.Tasks.Converters
         {
             var sut = new PriorityColorConverter();
 
-            var actual = sut.ConvertBack(null, null, null, null) as SolidColorBrush;
+            var actual = sut.ConvertBack(null, null, null, null);
 
-            actual?.Color.Should().BeNull();
+            actual.Should().BeNull();
         }
     }
 }
