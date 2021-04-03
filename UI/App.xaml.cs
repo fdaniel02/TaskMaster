@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Events;
 using Services;
+using Services.TagActionHandlers;
 using UI.Notifications;
 using UI.Tasks;
 using UI.Tasks.Filters;
@@ -54,6 +55,8 @@ namespace UI
             services.AddScoped<IProjectFilterOption, FilterName>();
             services.AddScoped<IProjectFilterOption, FilterTag>();
             services.AddScoped<IProjectFilterOption, FilterClosed>();
+
+            services.AddTransient<ITagActionHandler, DiscussionTagCreationHandler>();
 
             services.AddDbContext<TaskMasterContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("TaskMasterContext")));
