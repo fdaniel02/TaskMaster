@@ -3,7 +3,7 @@ name: .NET Core Desktop
 on: 
   push:
     branches:
-      - master
+      - work/sonarscanner-setup
   pull_request:
     types: [opened, synchronize, reopened]
 
