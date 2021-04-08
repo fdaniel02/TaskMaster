@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using Domain.Models;
+using GongSolutions.Wpf.DragDrop;
 using Prism.Commands;
 using Prism.Events;
 using Services;
@@ -11,7 +13,7 @@ using UI.Tasks.Filters;
 
 namespace UI.Tasks
 {
-    public class TaskListViewModel : BindableBase
+    public class TaskListViewModel : BindableBase, IDropTarget
     {
         private readonly IProjectService _projectService;
 
@@ -118,6 +120,19 @@ namespace UI.Tasks
             ProjectView.GroupDescriptions.Add(new PropertyGroupDescription("State"));
             OnPropertyChanged(nameof(ProjectView));
             OnPropertyChanged(nameof(Tags));
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            if (dropInfo.Data is Project && dropInfo.TargetItem is Project targetItem)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
         }
 
         private bool ProjectFilter(object p)
