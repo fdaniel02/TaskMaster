@@ -7,6 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:UI.Tasks.Converters"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -95,7 +96,10 @@
             SelectedItem="{Binding SelectedProject}"
             CanUserAddRows="False"
             AutoGenerateColumns="False"
-            HorizontalScrollBarVisibility="Hidden">
+            HorizontalScrollBarVisibility="Hidden"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DropHandler="{Binding}">
 
             <DataGrid.GroupStyle>
                 <GroupStyle ContainerStyle="{StaticResource ProjectGroupStyle}">
