@@ -41,12 +41,18 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
+            var newProject = new Project() { ID = 4, State = ProjectStates.Inbox };
+            var newProjectPosition = repository.
+                                        Projects
+                                        .Count(p => p.State == ProjectStates.Inbox) + 1;
             var sut = new ProjectService(repository, null, null);
-            var newProject = new Project() { ID = 4, };
 
             sut.AddNewProject(newProject);
 
             repository.Projects.Should().Contain(newProject);
+
+            var newProjectInRepository = repository.Projects.First(p => p.ID == newProject.ID);
+            newProjectInRepository.Order.Should().Be(newProjectPosition);
         }
 
         [Fact]
