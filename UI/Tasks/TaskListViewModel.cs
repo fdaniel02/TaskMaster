@@ -23,6 +23,8 @@ namespace UI.Tasks
 
         private readonly IProjectFilter _projectFilter;
 
+        private readonly IProjectOrderService _projectOrderService;
+
         private ObservableCollection<Project> _projects;
 
         private Project _selectedProject;
@@ -37,12 +39,14 @@ namespace UI.Tasks
             IProjectService projectService,
             ITagService tagService,
             IEventAggregator eventAggregator,
-            IProjectFilter projectFilter)
+            IProjectFilter projectFilter,
+            IProjectOrderService projectOrderService)
         {
             _projectService = projectService;
             _tagService = tagService;
             _eventAggregator = eventAggregator;
             _projectFilter = projectFilter;
+            _projectOrderService = projectOrderService;
 
             eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
 
@@ -105,8 +109,7 @@ namespace UI.Tasks
 
             var projects = _projectService
                 .GetProjects()
-                .OrderBy(p => p.State)
-                .ThenBy(p => p.Priority);
+                .OrderBy(p => p.Order);
 
             Projects = new ObservableCollection<Project>(projects);
             Tags = new ObservableCollection<string>(_tagService.GetTagNames());
@@ -133,6 +136,31 @@ namespace UI.Tasks
 
         public void Drop(IDropInfo dropInfo)
         {
+            if (!(dropInfo.Data is Project project && dropInfo.TargetItem is Project target))
+            {
+                return;
+            }
+
+            int newPosition;
+
+            if (project.Order > target.Order)
+            {
+                newPosition = dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.BeforeTargetItem)
+                    ? target.Order
+                    : target.Order + 1;
+
+                _projectOrderService.MoveUp(project, newPosition);
+            }
+            else
+            {
+                newPosition = dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem)
+                    ? target.Order
+                    : target.Order - 1;
+
+                _projectOrderService.MoveDown(project, newPosition);
+            }
+
+            Load();
         }
 
         private bool ProjectFilter(object p)
