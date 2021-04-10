@@ -65,7 +65,10 @@ namespace Services
 
         public void AddNewProject(Project project)
         {
+            var newProjectOrder = _projectRepository.GetAll().Count(p => p.State == project.State) + 1;
+            project.Order = newProjectOrder;
             project.Created = DateTime.Now;
+
             _projectRepository.Add(project);
         }
 
