@@ -5,6 +5,8 @@ namespace Domain.Repositories
 {
     public interface IProjectRepository
     {
+        TaskMasterContext Context { get; }
+
         IQueryable<Project> GetAll();
 
         void Add(Project project);

@@ -70,6 +70,17 @@ namespace Services.Test
             projects.Should().BeEquivalentTo(expected);
         }
 
+        [Theory]
+        [MemberData(nameof(GetRefreshOrderData))]
+        public void RefreshOrder_RefreshesOrder(List<Project> projects, int position, List<Project> expected)
+        {
+            var sut = new ProjectOrderService(new ProjectRepositoryFake(projects));
+
+            sut.RefreshOrder(projects, position);
+
+            projects.Should().BeEquivalentTo(expected);
+        }
+
         private List<Project> SetupBasicProjectData()
         {
             return new()
@@ -172,6 +183,61 @@ namespace Services.Test
                 new() { ID = 4, Name = "Test3", State = ProjectStates.Next, Order = 5 },
                 new() { ID = 5, Name = "Test3", State = ProjectStates.Next, Order = 3 },
                 new() { ID = 5, Name = "Test3", State = ProjectStates.Backlog, Order = 1 },
+            };
+        }
+
+        public static IEnumerable<object[]> GetRefreshOrderData()
+        {
+            yield return new object[] { InitialDataRefreshOrder1(), 1, ExpectedResultRefreshOrder() };
+            yield return new object[] { InitialDataRefreshOrder2(), 1, ExpectedResultRefreshOrder() };
+            yield return new object[] { InitialDataRefreshOrder3(), 1, ExpectedResultRefreshOrder() };
+        }
+
+        private static List<Project> InitialDataRefreshOrder1()
+        {
+            return new()
+            {
+                new() { ID = 1, Name = "Test1", State = ProjectStates.Next, Order = 5 },
+                new() { ID = 2, Name = "Test2", State = ProjectStates.Next, Order = 4 },
+                new() { ID = 3, Name = "Test3", State = ProjectStates.Next, Order = 3 },
+                new() { ID = 4, Name = "Test3", State = ProjectStates.Next, Order = 2 },
+                new() { ID = 5, Name = "Test3", State = ProjectStates.Next, Order = 1 },
+            };
+        }
+
+        private static List<Project> InitialDataRefreshOrder2()
+        {
+            return new()
+            {
+                new() { ID = 1, Name = "Test1", State = ProjectStates.Next, Order = 1 },
+                new() { ID = 2, Name = "Test2", State = ProjectStates.Next, Order = 10 },
+                new() { ID = 3, Name = "Test3", State = ProjectStates.Next, Order = 9 },
+                new() { ID = 4, Name = "Test3", State = ProjectStates.Next, Order = 77 },
+                new() { ID = 5, Name = "Test3", State = ProjectStates.Next, Order = 10000 },
+            };
+        }
+
+        private static List<Project> InitialDataRefreshOrder3()
+        {
+            return new()
+            {
+                new() { ID = 1, Name = "Test1", State = ProjectStates.Next, Order = -5 },
+                new() { ID = 2, Name = "Test2", State = ProjectStates.Next, Order = 0 },
+                new() { ID = 3, Name = "Test3", State = ProjectStates.Next, Order = 0 },
+                new() { ID = 4, Name = "Test3", State = ProjectStates.Next, Order = -5 },
+                new() { ID = 5, Name = "Test3", State = ProjectStates.Next, Order = 0 },
+            };
+        }
+
+        private static List<Project> ExpectedResultRefreshOrder()
+        {
+            return new()
+            {
+                new() { ID = 1, Name = "Test1", State = ProjectStates.Next, Order = 1 },
+                new() { ID = 2, Name = "Test2", State = ProjectStates.Next, Order = 2 },
+                new() { ID = 3, Name = "Test3", State = ProjectStates.Next, Order = 3 },
+                new() { ID = 4, Name = "Test3", State = ProjectStates.Next, Order = 4 },
+                new() { ID = 5, Name = "Test3", State = ProjectStates.Next, Order = 5 },
             };
         }
     }
