@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Domain;
 using Domain.Models;
 using Domain.Repositories;
 
@@ -13,6 +14,8 @@ namespace Services.Test.Fakes
         }
 
         public List<Project> Projects { get; set; }
+
+        public TaskMasterContext Context { get; }
 
         public IQueryable<Project> GetAll()
         {

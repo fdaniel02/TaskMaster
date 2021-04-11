@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Models;
 using Domain.Repositories;
@@ -26,7 +27,7 @@ namespace Services
             }
 
             bool Predicate(Project p) => p.Order > project.Order && p.Order <= newPosition;
-            Reorder(project, newPosition, Predicate, -1);
+            Reorder(project, newPosition, Predicate, project.Order);
         }
 
         public void MoveUp(Project project, int newPosition)
@@ -37,10 +38,20 @@ namespace Services
             }
 
             bool Predicate(Project p) => p.Order >= newPosition && p.Order < project.Order;
-            Reorder(project, newPosition, Predicate, 1);
+            Reorder(project, newPosition, Predicate, newPosition + 1);
         }
 
-        private void Reorder(Project project, int newPosition, Func<Project, bool> predicate, int moveValue)
+        public void RefreshOrder(List<Project> projects, int currentPosition = 1)
+        {
+            foreach (var project in projects.ToList())
+            {
+                project.Order = currentPosition;
+                currentPosition++;
+                _projectRepository.Update(project);
+            }
+        }
+
+        private void Reorder(Project project, int newPosition, Func<Project, bool> predicate, int position)
         {
             if (project.Order == newPosition)
             {
@@ -54,11 +65,7 @@ namespace Services
                 .Where(predicate)
                 .ToList();
 
-            foreach (var proj in projects)
-            {
-                proj.Order += moveValue;
-                _projectRepository.Update(proj);
-            }
+            RefreshOrder(projects, position);
 
             project.Order = newPosition;
             _projectRepository.Update(project);
