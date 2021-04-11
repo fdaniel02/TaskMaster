@@ -64,7 +64,7 @@ namespace Services
 
         public void UpdateProject(Project project)
         {
-            // HACK
+            // TODO: hack, refactor!
             if (_projectRepository.Context is not null
                 && _projectRepository.Context.Entry(project).Property("State").IsModified)
             {
