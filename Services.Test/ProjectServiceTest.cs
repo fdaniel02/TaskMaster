@@ -15,7 +15,7 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
-            var sut = new ProjectService(repository, null, null);
+            var sut = new ProjectService(repository, null, null, null);
             var expected = testProjects;
 
             var actual = sut.GetProjects();
@@ -28,7 +28,7 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
-            var sut = new ProjectService(repository, null, null);
+            var sut = new ProjectService(repository, null, null, null);
             var expected = testProjects.Where(p => p.State != ProjectStates.Closed);
 
             var actual = sut.GetOpenProjects();
@@ -41,12 +41,18 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
-            var sut = new ProjectService(repository, null, null);
-            var newProject = new Project() { ID = 4, };
+            var newProject = new Project() { ID = 4, State = ProjectStates.Inbox };
+            var newProjectPosition = repository.
+                                        Projects
+                                        .Count(p => p.State == ProjectStates.Inbox) + 1;
+            var sut = new ProjectService(repository, null, null, null);
 
             sut.AddNewProject(newProject);
 
             repository.Projects.Should().Contain(newProject);
+
+            var newProjectInRepository = repository.Projects.First(p => p.ID == newProject.ID);
+            newProjectInRepository.Order.Should().Be(newProjectPosition);
         }
 
         [Fact]
@@ -54,7 +60,7 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
-            var sut = new ProjectService(repository, null, null);
+            var sut = new ProjectService(repository, null, null, null);
             var updatedProject = repository.Projects.First();
 
             updatedProject.Name = "Updated";
@@ -70,7 +76,7 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
-            var sut = new ProjectService(repository, null, null);
+            var sut = new ProjectService(repository, null, null, null);
             var newProject = new Project() { ID = 0, };
 
             sut.SaveChanges(newProject);
@@ -83,7 +89,7 @@ namespace Services.Test
         {
             var testProjects = SetupBasicProjectData();
             var repository = new ProjectRepositoryFake(testProjects);
-            var sut = new ProjectService(repository, null, null);
+            var sut = new ProjectService(repository, null, null, null);
             var updatedProject = repository.Projects.First();
 
             updatedProject.Name = "Updated";

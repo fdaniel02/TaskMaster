@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -8,6 +9,7 @@ using GongSolutions.Wpf.DragDrop;
 using Prism.Commands;
 using Prism.Events;
 using Services;
+using UI.Notifications;
 using UI.Tasks.Events;
 using UI.Tasks.Filters;
 
@@ -23,6 +25,10 @@ namespace UI.Tasks
 
         private readonly IProjectFilter _projectFilter;
 
+        private readonly IProjectOrderService _projectOrderService;
+
+        private readonly INotificationService _notificationService;
+
         private ObservableCollection<Project> _projects;
 
         private Project _selectedProject;
@@ -37,12 +43,16 @@ namespace UI.Tasks
             IProjectService projectService,
             ITagService tagService,
             IEventAggregator eventAggregator,
-            IProjectFilter projectFilter)
+            IProjectFilter projectFilter,
+            IProjectOrderService projectOrderService,
+            INotificationService notificationService)
         {
             _projectService = projectService;
             _tagService = tagService;
             _eventAggregator = eventAggregator;
             _projectFilter = projectFilter;
+            _projectOrderService = projectOrderService;
+            _notificationService = notificationService;
 
             eventAggregator.GetEvent<UpdateProjectListEvent>().Subscribe(Load);
 
@@ -105,8 +115,7 @@ namespace UI.Tasks
 
             var projects = _projectService
                 .GetProjects()
-                .OrderBy(p => p.State)
-                .ThenBy(p => p.Priority);
+                .OrderBy(p => p.Order);
 
             Projects = new ObservableCollection<Project>(projects);
             Tags = new ObservableCollection<string>(_tagService.GetTagNames());
@@ -133,6 +142,36 @@ namespace UI.Tasks
 
         public void Drop(IDropInfo dropInfo)
         {
+            if (!(dropInfo.Data is Project project && dropInfo.TargetItem is Project target))
+            {
+                return;
+            }
+
+            try
+            {
+                if (project.Order > target.Order)
+                {
+                    var newPosition = dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.BeforeTargetItem)
+                        ? target.Order
+                        : target.Order + 1;
+
+                    _projectOrderService.MoveUp(project, newPosition);
+                }
+                else
+                {
+                    var newPosition = dropInfo.InsertPosition.HasFlag(RelativeInsertPosition.AfterTargetItem)
+                        ? target.Order
+                        : target.Order - 1;
+
+                    _projectOrderService.MoveDown(project, newPosition);
+                }
+            }
+            catch (Exception e)
+            {
+                _notificationService.ShowErrorMessage(e.Message);
+            }
+
+            Load();
         }
 
         private bool ProjectFilter(object p)

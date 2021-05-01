@@ -17,14 +17,18 @@ namespace Services
 
         private readonly IEnumerable<ITagActionHandler> _tagActionHandlers;
 
+        private readonly IProjectOrderService _projectOrderService;
+
         public ProjectService(
             IProjectRepository projectRepository,
             ITagService tagService,
-            IEnumerable<ITagActionHandler> tagActionHandlers)
+            IEnumerable<ITagActionHandler> tagActionHandlers,
+            IProjectOrderService projectOrderService)
         {
             _projectRepository = projectRepository;
             _tagService = tagService;
             _tagActionHandlers = tagActionHandlers;
+            _projectOrderService = projectOrderService;
         }
 
         public List<Project> GetProjects()
@@ -60,12 +64,31 @@ namespace Services
 
         public void UpdateProject(Project project)
         {
+            // TODO: hack, refactor!
+            if (_projectRepository.Context is not null
+                && _projectRepository.Context.Entry(project).Property("State").IsModified)
+            {
+                var newProjectOrder = _projectRepository.GetAll().Count(p => p.State == project.State) + 1;
+                project.Order = newProjectOrder;
+
+                var originalState = (ProjectStates)_projectRepository.Context.Entry(project).Property("State").OriginalValue;
+                var projectsToReorder = _projectRepository
+                    .GetAll()
+                    .Where(p => p.State == originalState && p.ID != project.ID)
+                    .ToList();
+
+                _projectOrderService.RefreshOrder(projectsToReorder);
+            }
+
             _projectRepository.Update(project);
         }
 
         public void AddNewProject(Project project)
         {
+            var newProjectOrder = _projectRepository.GetAll().Count(p => p.State == project.State) + 1;
+            project.Order = newProjectOrder;
             project.Created = DateTime.Now;
+
             _projectRepository.Add(project);
         }
 
